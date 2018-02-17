@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    include includes/foundation.pug
+    title= title
+  body
+    include includes/top-bar.pug
+    div#header
+      div.grid-container
+        div.grid-x.align-middle
+          div.cell.auto
+            img(src="/icons/building.png")
+          div.cell.large-9
+            block content
