@@ -1,4 +1,22 @@
+body {
+    box-shadow: 0 0 30px;
+    margin: 0 auto;
+    max-width: 90em;
+}
+
 #header {
-    background: linear-gradient(45deg, #1800BF, #10007F);
-    height: 20em;
+    background-image: url("/images/clouds.jpg");
+    background-size: cover;
+    height: 23em;
+}
+
+#header .grid-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+#header .grid-x {
+    margin: auto 0;
 }
