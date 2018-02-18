@@ -4,5 +4,21 @@ block header
   h1 Добро пожаловать в ОАО "БелПрограммистБанк"
   p Только у нас вклады и депозиты оформляются нейросетями!
 
+mixin table-header(text)
+  div.cell.small-4.table#table-header= text
+
+mixin table-body(text, img_url)
+  div.cell.small-4.table#table-body
+    img(src=img_url)
+    p= text
+
 block content
-  
+  div.grid-container
+    div.grid-x.grid-margin-x.text-center
+      +table-header("Депозит")
+      +table-header("Кредит")
+      +table-header("Страхование")
+    div.grid-x.grid-margin-x.text-center
+      +table-body("Выгодные депозиты с высокой процентной ставкой", "/images/deposit.png")
+      +table-body("Доступное кредитование с гибким графиком выплат", "/images/credit.png")
+      +table-body("Быстрое страхование вашей недвижимости", "/images/insurance.png")
