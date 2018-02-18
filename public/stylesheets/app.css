@@ -1,4 +1,10 @@
+h1 {
+    font-family: 'Roboto Slab', serif;
+}
+
 body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.2rem;
     box-shadow: 0 0 30px;
     margin: 0 auto;
     max-width: 90em;
@@ -17,6 +23,6 @@ body {
     height: 100%;
 }
 
-#header .grid-x {
-    margin: auto 0;
+#content {
+    background-color: bisque;
 }

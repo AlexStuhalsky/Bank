@@ -1,14 +1,11 @@
 doctype html
 html
   head
-    include includes/foundation.pug
+    include includes/framework.pug
     title ОАО "БПБ" Банк::#{title}
   body
     include includes/top-bar.pug
-    div#header
-      div.grid-container.align-middle
-        div.grid-x.align-middle
-          div.cell.auto
-            img(src="/images/building.png")
-          div.cell.large-9
-            block header
+    include includes/header.pug
+    include includes/navbar.pug
+    div#content
+      block content
