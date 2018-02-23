@@ -2,4 +2,27 @@ extends layout
 
 block header
   h1 Справка
-  p Информация
+  p О компании, отделах и сотрудниках
+
+block content
+  -
+    var employees = [
+      { surname: 'Романенко', name: 'Роман', patronymic: 'Александрович', birth: '08-08-1997', dep_num: '1' },
+      { surname: 'Стухальский', name: 'Алексей', patronymic: 'Леонидович', birth: '31-08-1998', dep_num: '2' },
+      { surname: 'Васильев', name: 'Иван', patronymic: 'Петрович', birth: '19-01-1986', dep_num: '3' }
+    ]
+  h5 Сотрудники
+  table
+    tr
+      th Фамилия
+      th Имя
+      th Отчество  
+      th Дата рождения
+      th № Отдела
+    each emp in employees
+      tr.text-center
+        td= emp.surname
+        td= emp.name
+        td= emp.patronymic
+        td= emp.birth
+        td= emp.dep_num

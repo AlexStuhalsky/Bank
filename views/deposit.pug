@@ -3,3 +3,23 @@ extends layout
 block header
   h1 Вклады
   p Только у нас вклады и депозиты оформляются нейросетями!
+
+block content
+  form
+    .grid-container
+      .grid-x.grid-margin-x
+        .small-4.cell
+          label Фамилия:
+          input(type="text", name="surname")
+        .small-4.cell
+          label Имя:
+          input(type="text", name="name")  
+        .small-4.cell
+          label Отчество:
+          input(type="text", name="patronymic")  
+      label Дата рождения:
+      input(type="text", name="birth")
+      label Адресс проживания:
+      input(type="text", name="address")
+      input(type="submit")
+      
