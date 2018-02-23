@@ -1,7 +1,11 @@
+mixin menu_link(url, title)
+    a(href=url): h5=title
+
 div.grid-container.fluid#navbar
     div.grid-x.align-center
-        a(href="/") Главная
-        a(href="/deposit") Вклады
-        a(href="/credit") Кредиты
+        +menu_link("/", "Главная")
+        +menu_link("/deposit", "Вклады")
+        +menu_link("/credit", "Кредиты")
+        +menu_link("/info", "Справка")
         
 

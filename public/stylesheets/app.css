@@ -1,4 +1,12 @@
+html {
+    margin-bottom: 1em;
+}
+
 h1 {
+    font-family: 'Roboto Slab', serif;
+}
+
+h5 {
     font-family: 'Roboto Slab', serif;
 }
 
@@ -37,12 +45,13 @@ body {
     width: 100%;
 }
 
-#navbar div a {
+#navbar div a h5 {
     margin: .5rem;
+    font-style: italic;
     color: white;
 }
 
-#navbar div a:hover {
+#navbar div a h5:hover {
     color: #BFBFBF;
 }
 
@@ -59,6 +68,10 @@ body {
 #table-header {
     background: #0a0a0a;
     color: white;
+}
+
+#table-header h5 {
+    margin: 0;
 }
 
 #table-body {
