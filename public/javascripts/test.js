@@ -16,10 +16,10 @@ var planets_info = [
 
 function satellite_click(satellite_num, satellite_res) {
   var res = "fuck";
-  var num = parseInt(el(satellite_num).value);
+  var num = parseInt(el(satellite_num).text);
   // foreach(pl in planets_info) {
   //   if (pl.num >= num)
   //     res += pl.name + " ";
   // }
-  el(satellite_res).value = res;
+  el(satellite_res).text = res;
 }
