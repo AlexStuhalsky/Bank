@@ -5,20 +5,20 @@ block header
   p Только у нас вклады и депозиты оформляются нейросетями!
 
 mixin table-header(text)
-  div.cell.small-4.table#table-header: h5= text
+  .cell.small-4.table#table-header: h5= text
 
 mixin table-body(text, img_url)
-  div.cell.small-4.table#table-body
+  .cell.small-4.table#table-body
     img(src=img_url, onmouseover="resizeUp(this)", onmouseout="resizeDown(this)")
     p= text
 
 block content
   .grid-container
-    div.grid-x.grid-margin-x.text-center
+    .grid-x.grid-margin-x.text-center
       +table-header("Депозит")
       +table-header("Тарифы")
       +table-header("Кредит")
-    div.grid-x.grid-margin-x.text-center
+    .grid-x.grid-margin-x.text-center
       +table-body("Выгодные депозиты с высокой процентной ставкой", "/images/deposit.png")
       +table-body("Заключение выгодных тарифов 24/7", "/images/rates.png")
       +table-body("Доступное кредитование с гибким графиком выплат", "/images/credit.png")
