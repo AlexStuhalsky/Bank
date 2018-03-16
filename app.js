@@ -10,6 +10,7 @@ var deposit = require('./routes/deposit');
 var users = require('./routes/users');
 var info = require('./routes/info');
 var credit = require('./routes/credit');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/', index);
 app.use('/', deposit);
 app.use('/', credit);
 app.use('/', info);
+app.use('/', user);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

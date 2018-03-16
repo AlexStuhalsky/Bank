@@ -42,3 +42,7 @@ function resizeDown(object) {
         object.style.width = toPx(width + resize_coeff * (minWidth - width));
     }, update_interval);
 }
+
+function make_contract(){
+    alert('Сейчас делать лень, сделаю потом');
+}

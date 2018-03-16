@@ -1,25 +1,63 @@
 extends layout
 
 block header
-  h1 Вклады
+  h1 Депозиты 
   p Только у нас вклады и депозиты оформляются нейросетями!
 
-block content
-  form
-    .grid-container
-      .grid-x.grid-margin-x
-        .small-4.cell
-          label Фамилия:
-          input(type="text", name="surname")
-        .small-4.cell
-          label Имя:
-          input(type="text", name="name")  
-        .small-4.cell
-          label Отчество:
-          input(type="text", name="patronymic")  
-      label Дата рождения:
-      input(type="text", name="birth")
-      label Адрес проживания:
-      input(type="text", name="address")
-      input(type="submit")
+//- block content
+//-   form
+//-     .grid-container
+//-       .grid-x.grid-margin-x
+//-         .small-4.cell
+//-           label Фамилия:
+//-           input(type="text", name="surname")
+//-         .small-4.cell
+//-           label Имя:
+//-           input(type="text", name="name")  
+//-         .small-4.cell
+//-           label Отчество:
+//-           input(type="text", name="patronymic")  
+//-       label Дата рождения:
+//-       input(type="text", name="birth")
+//-       label Адрес проживания:
+//-       input(type="text", name="address")
+//-       input(type="submit")
       
+block content
+  .grid-container
+    .grid-x.grid-margin-x.text-center
+      .cell.small-3
+          button.button#content-control(type='button' onclick="make_contract()") Заключить договор
+      .cell.small-9
+        ul.menu
+            li(style='width:80%')
+              input#content-control(type='text' placeholder='Поиск...')
+            li
+              button.button#content-control(type='button', style='margin-left: 0.5em') Искать
+  -
+    var credits = [
+      { id: '6', cl_s: 'Якушев', cl_n: 'Никифор', cl_p: 'Ермолаевич', emp_s: 'Полтанов', emp_n: 'Наум', emp_p: 'Наумович', amount: '-50000', per_rate: '0,03', balance: '50000', date: '2018-03-05', address: 'Брест' },
+      { id: '10', cl_s: 'Якушев', cl_n: 'Никифор', cl_p: 'Ермолаевич', emp_s: 'Полтанов', emp_n: 'Наум', emp_p: 'Наумович', amount: '-50000', per_rate: '0,03', balance: '10000', date: '2018-03-14', address: 'Гродно' },
+      { id: '11', cl_s: 'Лосевский', cl_n: 'Пимен', cl_p: 'Викентиевич', emp_s: 'Трутнев', emp_n: 'Роман', emp_p: 'Брониславович', amount: '10000', per_rate: '0,03', balance: '10000', date: '2018-03-14', address: 'Минск' }
+    ]
+  h5 Депозиты
+  table
+    tr
+      th №
+      th ФИО клиента
+      th ФИО сотрудника
+      th Сумма
+      th Процент
+      th Баланс
+      th Дата
+      th Адрес
+    each cr in credits
+      tr.text-center
+        td= cr.id
+        td= cr.cl_s + ' ' + cr.cl_n + ' ' + cr.cl_p
+        td= cr.emp_s + ' ' + cr.emp_n + ' ' + cr.emp_p
+        td= cr.amount
+        td= cr.per_rate
+        td= cr.balance
+        td= cr.date
+        td= cr.address

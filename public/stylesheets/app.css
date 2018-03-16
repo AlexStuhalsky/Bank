@@ -47,7 +47,6 @@ body {
 
 #navbar div a h5 {
     margin: .5rem;
-    font-style: italic;
     color: white;
 }
 
@@ -83,6 +82,10 @@ body {
     max-width: 9em;
     min-width: 8em;
     width: 8em;
+}
+
+#content-control {
+    width: 100%;
 }
 
 #footer {
