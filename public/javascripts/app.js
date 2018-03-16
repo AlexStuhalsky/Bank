@@ -1,37 +1,44 @@
 $(document).foundation()
 
-function fromEm(em) {
-    return parseFloat(em.substring(0, em.length - 2));
+function fromPx(px) {
+    return parseFloat(px.substring(0, px.length - 2));
 }
 
-function toEm(em) {
-    return em.toString() + "em";
+function toPx(px) {
+    return px.toString() + "px";
 }
+
+var resize_coeff = 0.08;
+var update_interval = 6;
 
 function resizeUp(object) {
-    if (!object.style.width) {
-        object.style.minWidth="8em";
-        object.style.width="8em";
-        object.style.maxWidth="9em";
-    }
     if (object.downsizeId) clearInterval(object.downsizeId);
+
+    style = getComputedStyle(object);
     object.upsizeId = setInterval(function() {
-        width = fromEm(object.style.width);
-        maxWidth = fromEm(object.style.maxWidth);
-        object.style.width = toEm(width + 0.08 * (maxWidth - width)); 
-    }, 10);
+        width = fromPx(style.width);
+        maxWidth = fromPx(style.maxWidth);
+        if (Math.abs(maxWidth - width) <= 1) {
+            object.style.width = toPx(maxWidth);
+            clearInterval(object.upsizeId);
+            return;
+        }
+        object.style.width = toPx(width + resize_coeff * (maxWidth - width));
+    }, update_interval);
 }
 
 function resizeDown(object) {
-    if (!object.style.width) {
-        object.style.minWidth="8em";
-        object.style.width="8em";
-        object.style.maxWidth="9em";
-    }
     if (object.upsizeId) clearInterval(object.upsizeId);
+
+    style = getComputedStyle(object);
     object.downsizeId = setInterval(function() {
-        width = fromEm(object.style.width);
-        minWidth = fromEm(object.style.minWidth);
-        object.style.width = toEm(width - 0.08 * (width - minWidth)); 
-    }, 10);
+        width = fromPx(style.width);
+        minWidth = fromPx(style.minWidth);
+        if (Math.abs(minWidth - width) <= 1) {
+            object.style.width = toPx(minWidth);
+            clearInterval(object.downsizeId);
+            return;
+        }
+        object.style.width = toPx(width + resize_coeff * (minWidth - width));
+    }, update_interval);
 }

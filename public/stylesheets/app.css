@@ -79,6 +79,12 @@ body {
     border: 0.2rem solid black;
 }
 
+#table-body img {
+    max-width: 9em;
+    min-width: 8em;
+    width: 8em;
+}
+
 #footer {
     padding: .5rem;
     background-color: #0a0a0a;
