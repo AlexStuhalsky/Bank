@@ -12,6 +12,11 @@ var info = require('./routes/info');
 var credit = require('./routes/credit');
 var user = require('./routes/user');
 
+//test page
+var test = require('./routes/test');
+//test page
+
+
 var app = express();
 
 // view engine setup
@@ -31,6 +36,11 @@ app.use('/', deposit);
 app.use('/', credit);
 app.use('/', info);
 app.use('/', user);
+
+//test page
+app.use('/', test);
+//test page
+
 app.use('/users', users);
 
 // catch 404 and forward to error handler

@@ -2,16 +2,13 @@ html {
     margin-bottom: 1em;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6, p {
     font-family: 'Roboto Slab', serif;
+    cursor: default;
 }
 
-h5 {
-    font-family: 'Roboto Slab', serif;
-}
-
-p {
-    font-family: 'Roboto Slab', serif;
+a * {
+    cursor: pointer;
 }
 
 body {

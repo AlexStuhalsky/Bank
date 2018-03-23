@@ -7,9 +7,10 @@ block header
 mixin table-header(text)
   .cell.small-4.table#table-header: h5= text
 
-mixin table-body(text, img_url)
+mixin table-body(text, img_url, link)
   .cell.small-4.table#table-body
-    img(src=img_url, onmouseover="resizeUp(this)", onmouseout="resizeDown(this)")
+    a(href=link)
+      img(src=img_url, onmouseover="resizeUp(this)", onmouseout="resizeDown(this)")
     p= text
 
 block content
@@ -19,6 +20,6 @@ block content
       +table-header("Тарифы")
       +table-header("Кредит")
     .grid-x.grid-margin-x.text-center
-      +table-body("Выгодные депозиты с высокой процентной ставкой", "/images/deposit.png")
-      +table-body("Заключение выгодных тарифов 24/7", "/images/rates.png")
-      +table-body("Доступное кредитование с гибким графиком выплат", "/images/credit.png")
+      +table-body("Выгодные депозиты с высокой процентной ставкой", "/images/deposit.png", "/deposit")
+      +table-body("Заключение выгодных тарифов 24/7", "/images/rates.png", "/info")
+      +table-body("Доступное кредитование с гибким графиком выплат", "/images/credit.png", "/credit")
