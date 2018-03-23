@@ -1,0 +1,35 @@
+mixin contract_search()
+  .grid-container
+    .grid-x.grid-margin-x.text-center.align-middle
+      .cell.small-3
+        ul.menu
+          li
+            button.button.content-control(type='button' onclick="make_contract()") Заключить договор
+      .cell.small-9
+        ul.menu
+            li(style='width:80%')
+              input.content-control(type='text' placeholder='Поиск...')
+            li
+              button.button.content-control(type='button', style='margin-left: 0.5em') Искать
+            
+mixin contract_table(contracts)
+  table
+    tr
+      th №
+      th ФИО клиента
+      th ФИО сотрудника
+      th Сумма
+      th Процент
+      th Баланс
+      th Дата
+      th Адрес
+    each c in contracts 
+      tr.text-center
+        td= c.id
+        td= c.cl_s + ' ' + c.cl_n + ' ' + c.cl_p
+        td= c.emp_s + ' ' + c.emp_n + ' ' + c.emp_p
+        td= c.amount
+        td= c.per_rate
+        td= c.balance
+        td= c.date
+        td= c.address

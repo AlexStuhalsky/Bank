@@ -5,16 +5,8 @@ block header
   p Только у нас вклады и депозиты оформляются нейросетями!
 
 block content
-  .grid-container
-    .grid-x.grid-margin-x.text-center
-      .cell.small-3
-          button.button#content-control(type='button' onclick="make_contract()") Заключить договор
-      .cell.small-9
-        ul.menu
-            li(style='width:80%')
-              input#content-control(type='text' placeholder='Поиск...')
-            li
-              button.button#content-control(type='button', style='margin-left: 0.5em') Искать
+  include includes/contract.pug
+  +contract_search()
   -
     var credits = [
       { id: '6', cl_s: 'Якушев', cl_n: 'Никифор', cl_p: 'Ермолаевич', emp_s: 'Полтанов', emp_n: 'Наум', emp_p: 'Наумович', amount: '-50000', per_rate: '0,03', balance: '50000', date: '2018-03-05', address: 'Брест' },
@@ -22,23 +14,4 @@ block content
       { id: '11', cl_s: 'Лосевский', cl_n: 'Пимен', cl_p: 'Викентиевич', emp_s: 'Трутнев', emp_n: 'Роман', emp_p: 'Брониславович', amount: '10000', per_rate: '0,03', balance: '10000', date: '2018-03-14', address: 'Минск' }
     ]
   h5 Кредиты
-  table
-    tr
-      th №
-      th ФИО клиента
-      th ФИО сотрудника
-      th Сумма
-      th Процент
-      th Баланс
-      th Дата
-      th Адрес
-    each cr in credits
-      tr.text-center
-        td= cr.id
-        td= cr.cl_s + ' ' + cr.cl_n + ' ' + cr.cl_p
-        td= cr.emp_s + ' ' + cr.emp_n + ' ' + cr.emp_p
-        td= cr.amount
-        td= cr.per_rate
-        td= cr.balance
-        td= cr.date
-        td= cr.address
+  +contract_table(credits)
