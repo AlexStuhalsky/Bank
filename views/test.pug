@@ -1,4 +1,31 @@
 head
-  title meow
+  include includes/framework.pug
+-
+  var planets_info = [
+    { name: 'Сатурн', num: '17'},
+    { name: 'Юпитер', num: '16'},
+    { name: 'Уран', num: '14'},
+    { name: 'Марс', num: '2'},
+    { name: 'Нептун', num: '2'},
+    { name: 'Земля', num: '1'},
+    { name: 'Плутон', num: '1'}
+  ]
+.grid-container
+  .grid-x.grid-margin-x
+    .cell.small-4
+      h4 Задание-минимум 1
+      table.text-center
+        tr
+          th Планета
+          th Количество спутников
+        each p in planets_info
+          tr
+            td= p.name
+            td= p.num
+      div      
+        input(type="text", id="satellite_num", name="number", placeholder="Введите количество спутников...")
+        input.button.content-control(type="button", onclick="satellite_click('satellite_num', 'satellite_res')", value="Послать запрос") 
+        h5(id="satellite_res") Результат...
+    .cell.small-4
+    .cell.small-4
 
-body
