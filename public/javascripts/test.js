@@ -14,12 +14,14 @@ var planets_info = [
   { name: 'Плутон', num: '1'}
 ]
 
-function satellite_click(satellite_num, satellite_res) {
-  var res = "fuck";
-  var num = parseInt(el(satellite_num).value);
-  // foreach(pl in planets_info) {
-  //   if (pl.num >= num)
-  //     res += pl.name + " ";
-  // }
-  el(satellite_res).value = res;
+function satellite_click() {
+  var res = "";
+  // var num = parseInt(el(satellite_num).value);
+  var num = 3; 
+  for(pl in planets_info) {
+    if (pl.num >= num)
+      res += pl.name + " ";
+  }
+  alert("bitch");
+  el("satellite_num").value = res;
 }
