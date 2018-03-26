@@ -1,9 +1,3 @@
-$(document).foundation()
-
-function el(id) {
-  return document.getElementById(id);
-}
-
 var planets_info = [
   { name: 'Сатурн', num: '17'},
   { name: 'Юпитер', num: '16'},
@@ -16,10 +10,10 @@ var planets_info = [
 
 function satellite_click(satellite_num, satellite_res) {
   var res = "fuck";
-  var num = parseInt(el(satellite_num).text);
-  // foreach(pl in planets_info) {
-  //   if (pl.num >= num)
-  //     res += pl.name + " ";
-  // }
-  el(satellite_res).text = res;
+  var num = parseInt(document.getElementById(satellite_num).value);
+  planets_info.forEach(function(pl) {
+    if (pl.num >= num)
+      res += pl.name + " ";
+  });
+  document.getElementById(satellite_res).innerHTML = res;
 }
