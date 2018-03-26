@@ -17,11 +17,10 @@ var planets_info = [
 function satellite_click() {
   var res = "";
   // var num = parseInt(el(satellite_num).value);
-  var num = 3; 
-  for(pl in planets_info) {
-    if (pl.num >= num)
-      res += pl.name + " ";
-  }
-  alert("bitch");
+  var num = 3;
+  planets_info.forEach(function(pl) {
+    if (parseInt(pl.num) >= num)
+      res.concat(pl.name + " ");
+  }); 
   el("satellite_num").value = res;
 }
