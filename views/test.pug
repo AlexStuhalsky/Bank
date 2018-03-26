@@ -1,5 +1,8 @@
 head
+  //- Included only for test page. Remove after task passing
+  script(type="text/javascript" src="javascripts/test.js")
   include includes/framework.pug
+body
 -
   var planets_info = [
     { name: 'Сатурн', num: '17'},
@@ -23,9 +26,9 @@ head
             td= p.name
             td= p.num
       div      
-        input(type="text", id="satellite_num", name="number", placeholder="Введите количество спутников...")
-        input.button.content-control(type="button", onclick="satellite_click()", value="Послать запрос") 
-        h5(id="satellite_res") Результат...
+        input#satellite_num(type="text", name="number", placeholder="Введите количество спутников...")
+        input.button.content-control(type="button", onclick="satellite_click('satellite_num', 'satellite_res')", value="Послать запрос") 
+        h5#satellite_res Результат...
     .cell.small-4
     .cell.small-4
 

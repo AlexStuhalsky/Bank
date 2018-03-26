@@ -1,9 +1,3 @@
-$(document).foundation()
-
-function el(id) {
-  return document.getElementById(id);
-}
-
 var planets_info = [
   { name: 'Сатурн', num: '17'},
   { name: 'Юпитер', num: '16'},
@@ -14,13 +8,12 @@ var planets_info = [
   { name: 'Плутон', num: '1'}
 ]
 
-function satellite_click() {
+function satellite_click(satellite_num, satellite_res) {
   var res = "";
-  // var num = parseInt(el(satellite_num).value);
-  var num = 3;
+  var num = parseInt(document.getElementById(satellite_num).value);
   planets_info.forEach(function(pl) {
-    if (parseInt(pl.num) >= num)
-      res.concat(pl.name + " ");
-  }); 
-  el("satellite_num").value = res;
+    if (pl.num >= num)
+      res += pl.name + " ";
+  });
+  document.getElementById(satellite_res).innerHTML = res;
 }
