@@ -181,5 +181,5 @@ function calc_deg(x1_ui, y1_ui, z1_ui, x2_ui, y2_ui, z2_ui, acc_ui, deg_res_ui) 
   var angle = Math.acos(num/den) * 180 / Math.PI;
   var acc = parseInt(el(acc_ui).value);
   var e = Math.pow(10, acc);
-  el(deg_res_ui).innerHTML = "Угол между прямыми:" + Math.round(angle * e) / e;
+  el(deg_res_ui).innerHTML = "Угол между прямыми: " + Math.round(angle * e) / e;
 }
