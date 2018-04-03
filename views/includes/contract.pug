@@ -25,11 +25,11 @@ mixin contract_table(contracts)
       th Адрес
     each c in contracts 
       tr.text-center
-        td= c.id
-        td= c.cl_s + ' ' + c.cl_n + ' ' + c.cl_p
-        td= c.emp_s + ' ' + c.emp_n + ' ' + c.emp_p
-        td= c.amount
+        td= c.contract_id
+        td= c.client_surname + ' ' + c.client_name + ' ' + c.client_patronymic
+        td= c.emp_surname + ' ' + c.emp_name + ' ' + c.emp_patronymic
+        td= Math.abs(c.rate_amount)
         td= c.per_rate
         td= c.balance
-        td= c.date
+        td= c.date.toLocaleDateString()
         td= c.address

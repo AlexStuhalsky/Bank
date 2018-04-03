@@ -43,6 +43,6 @@ function resizeDown(object) {
     }, update_interval);
 }
 
-function make_contract(){
+function make_contract() {
     alert('Сейчас делать лень, сделаю потом');
 }

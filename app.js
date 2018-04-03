@@ -1,3 +1,4 @@
+var mssql = require('mssql/msnodesqlv8');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,54 +12,61 @@ var users = require('./routes/users');
 var info = require('./routes/info');
 var credit = require('./routes/credit');
 var user = require('./routes/user');
-
-//test page
-var test = require('./routes/test');
-//test page
-
+var make_contract = require('./routes/make_contract');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+//connection string
+var config = {
+  driver: 'msnodesqlv8',
+  server: 'localhost',
+  user: 'Alex',
+  password: '12345',
+  database: 'Bank'
+};
 
-// uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+mssql.connect(config).then(function () {
+  // view engine setup
+  app.set('views', path.join(__dirname, 'views'));
+  app.set('view engine', 'pug');
 
-app.use('/', index);
-app.use('/', deposit);
-app.use('/', credit);
-app.use('/', info);
-app.use('/', user);
+  // uncomment after placing your favicon in /public
+  app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  app.use(logger('dev'));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, 'public')));
 
-//test page
-app.use('/', test);
-//test page
+  app.use('/', index);
+  app.use('/', deposit);
+  app.use('/', credit);
+  app.use('/', info);
+  app.use('/', user);
+  app.use('/', make_contract);
+  app.use('/users', users);
 
-app.use('/users', users);
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+    var err = new Error('Не найдено');
+    err.status = 404;
+    next(err);
+  });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Не найдено');
-  err.status = 404;
-  next(err);
-});
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
+})
+.catch(function(err)
+{
+  console.log(err);
 });
 
 module.exports = app;

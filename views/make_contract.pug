@@ -1,0 +1,19 @@
+extends layout
+
+block header
+  h1 Заключение договора 
+  p Заключайте договора на кредитной либо депозитной основе не выходя из дома.
+
+block content
+  form(action="", method="post")
+    .grid-container
+      .grid-x.grid-margin-x
+        select#client
+          each c in clients
+            option= c.surname + ' ' + c.name + ' ' + c.patronymic
+        select#employee
+          each e in employees
+            option= e.surname + ' ' + e.name + ' ' + e.patronymic
+        select#rate
+          each r in rates
+            option= r.name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
