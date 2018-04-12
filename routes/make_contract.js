@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/make_contract', function(req, res, next) {
+router.get('/(?:credit|deposit)/new', function(req, res, next) {
   var clients = null;
   var employees = null;
   var rates = null;
@@ -14,9 +14,9 @@ router.get('/make_contract', function(req, res, next) {
     {
       res.render('make_contract', {
         title: 'Договора',
-        clients: clients.recordset,
-        employees: employees.recordset,
-        rates: rates.recordset
+        clients: clients,
+        employees: employees,
+        rates: rates
       });
     }
   };
@@ -43,16 +43,16 @@ router.get('/make_contract', function(req, res, next) {
   })
   .catch(on_failed);
 
-  request.query('select surname, name, patronymic from clients')
+  request.query('######### Get employees ############')
   .then(function(records) {
-    clients = records.recordset
+    employees = records.recordset
     on_success();
   })
   .catch(on_failed);
 
-  request.query('select surname, name, patronymic from clients')
+  request.query('############# Get rates #############')
   .then(function(records) {
-    clients = records.recordset
+    rates = records.recordset
     on_success();
   })
   .catch(on_failed);
