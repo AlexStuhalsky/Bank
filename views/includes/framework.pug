@@ -8,3 +8,8 @@ script(type="text/javascript" src="/javascripts/vendor/jquery.js")
 script(type="text/javascript" src="/javascripts/vendor/what-input.js")
 script(type="text/javascript" src="/javascripts/vendor/foundation.min.js")
 script(type="text/javascript" src="/javascripts/app.js")
+-
+  var path = req.url.slice(-1) == "/" ? req.url.slice(0, -1).split("/") : req.url.split("/");
+  var name = path[path.length - 1];
+  var page = name ? name : "index";
+script(type="text/javascript" src="/javascripts/" + page + ".js")

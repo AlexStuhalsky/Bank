@@ -18,7 +18,7 @@ var rates = [
   { name: "Тяжёлый", amount: "3000", per_rate: "0.01" }
 ]
 
-router.get('/:type(credit|deposit)/new', function(req, res, next) {
+router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   //var clients = null;
   //var employees = null;
   //var rates = null;
@@ -29,6 +29,7 @@ router.get('/:type(credit|deposit)/new', function(req, res, next) {
     if (clients != null && employees != null && rates != null)
     {
       res.render('make_contract', {
+        req: req,
         title: 'Договора',
         clients: clients,
         employees: employees,
@@ -42,6 +43,7 @@ router.get('/:type(credit|deposit)/new', function(req, res, next) {
     if (!failed)
     {
       res.render('make_contract', {
+        req: req,
         title: 'Договора',
         clients: [],
         employees: [],

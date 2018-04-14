@@ -1,4 +1,5 @@
 var mssql = require('mssql');
+var pug = require('pug');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,11 +9,10 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var deposit = require('./routes/deposit');
-var users = require('./routes/users');
 var info = require('./routes/info');
 var credit = require('./routes/credit');
 var user = require('./routes/user');
-var make_contract = require('./routes/make_contract');
+var make_contract = require('./routes/contract');
 
 var app = express();
 
@@ -24,6 +24,8 @@ var config = {
   password: '12345',
   database: 'Bank'
 };
+
+pug.globals = [ "req" ];
 
 //mssql.connect(config).then(function () {
   // view engine setup
@@ -44,7 +46,6 @@ var config = {
   app.use('/', info);
   app.use('/', user);
   app.use('/', make_contract);
-  app.use('/users', users);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

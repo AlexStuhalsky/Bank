@@ -11,18 +11,20 @@ block content
       { surname: 'Стухальский', name: 'Алексей', patronymic: 'Леонидович', birth: '31-08-1998', dep_num: '2' },
       { surname: 'Васильев', name: 'Иван', patronymic: 'Петрович', birth: '19-01-1986', dep_num: '3' }
     ]
-  h5 Сотрудники
-  table
-    tr
-      th Фамилия
-      th Имя
-      th Отчество  
-      th Дата рождения
-      th № Отдела
-    each emp in employees
-      tr.text-center
-        td= emp.surname
-        td= emp.name
-        td= emp.patronymic
-        td= emp.birth
-        td= emp.dep_num
+  .grid-container.fluid
+    .grid-x.grid-margin-x
+      .cell.small-2
+        .menu.vertical
+          li: a.clients Клиенты 
+          li: a.employees Сотрудники
+          li: a.rates Тарифы
+          li: a.departments Отделы
+          li: a.positions Должности
+      .cell.small-9.auto
+        table
+          tbody
+            tr
+              td
+                img(src="/images/database.png")
+              td
+                h3 Выберите желаемый набор данных для отображения

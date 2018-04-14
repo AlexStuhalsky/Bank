@@ -7,6 +7,7 @@ router.get('/credit/', function(req, res, next) {
   request.query('select * from contracts_view where rate_amount > 0')
   .then(function (records) {
       res.render('credit', {
+        req: req,
         title: 'Кредиты',
         data: records.recordset
       });
@@ -14,6 +15,7 @@ router.get('/credit/', function(req, res, next) {
   .catch(function(err) {
       console.log(err);
       res.render('credit', {
+        req: req,
         title: 'Кредиты',
         data: [] 
       });
