@@ -10,7 +10,7 @@ mixin table-header(text)
 mixin table-body(text, img_url, link)
   .cell.small-4.table#table-body
     a(href=link)
-      img(src=img_url, onmouseover="resizeUp(this)", onmouseout="resizeDown(this)")
+      img.table-img(src=img_url)
     p= text
 
 block content
