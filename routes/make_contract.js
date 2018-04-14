@@ -2,8 +2,7 @@ var mssql = require('mssql');
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/(?:credit|deposit)/new', function(req, res, next) {
+router.get('/:type(credit|deposit)/new', function(req, res, next) {
   var clients = null;
   var employees = null;
   var rates = null;

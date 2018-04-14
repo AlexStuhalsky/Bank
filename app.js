@@ -1,4 +1,4 @@
-var mssql = require('mssql/msnodesqlv8');
+var mssql = require('mssql');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
