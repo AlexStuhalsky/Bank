@@ -13,6 +13,10 @@ router.get('/credit', function(req, res, next) {
   })
   .catch(function(err) {
       console.log(err);
+      res.render('credit', {
+        title: 'Кредиты',
+        data: [] 
+      });
   });
 });
 

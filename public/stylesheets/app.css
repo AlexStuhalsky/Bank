@@ -85,6 +85,14 @@ body {
     width: 100%;
 }
 
+.li-style {
+    width: 80%;
+}
+
+.content-search {
+    margin-left: 0.5em;
+}
+
 #footer {
     padding: .5rem;
     background-color: #0a0a0a;

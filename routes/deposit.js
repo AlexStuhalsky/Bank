@@ -6,13 +6,17 @@ router.get('/deposit', function(req, res, next) {
   var request = new mssql.Request();
   request.query('select * from contracts_view where rate_amount < 0')
   .then(function (records) {
-      res.render('credit', {
-        title: 'Кредиты',
+      res.render('deposit', {
+        title: 'Депозиты',
         data: records.recordset
       });
   })
   .catch(function(err) {
       console.log(err);
+      res.render('deposit', {
+        title: 'Депозиты',
+        data: []
+      });
   });
 });
 

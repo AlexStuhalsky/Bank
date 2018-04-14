@@ -25,7 +25,7 @@ var config = {
   database: 'Bank'
 };
 
-mssql.connect(config).then(function () {
+//mssql.connect(config).then(function () {
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
@@ -63,10 +63,10 @@ mssql.connect(config).then(function () {
     res.status(err.status || 500);
     res.render('error');
   });
-})
+/*})
 .catch(function(err)
 {
   console.log(err);
-});
+});*/
 
 module.exports = app;

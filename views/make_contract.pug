@@ -1,19 +1,27 @@
 extends layout
 
 block header
-  h1 Заключение договора 
+  h1 Заключение #{contract_type} 
   p Заключайте договора на кредитной либо депозитной основе не выходя из дома.
 
 block content
-  form(action="", method="post")
-    .grid-container
+  form(action="new", method="post")
+    .grid-container.fluid
       .grid-x.grid-margin-x
-        select#client
-          each c in clients
-            option= c.surname + ' ' + c.name + ' ' + c.patronymic
-        select#employee
-          each e in employees
-            option= e.surname + ' ' + e.name + ' ' + e.patronymic
-        select#rate
-          each r in rates
-            option= r.name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
+        .cell.small-3
+          h5 Имя клиента:
+          select#client
+            each c in clients
+              option= c.surname + ' ' + c.name + ' ' + c.patronymic
+        .cell.small-3
+          h5 Имя сотрудника:
+          select#employee
+            each e in employees
+              option= e.surname + ' ' + e.name + ' ' + e.patronymic
+        .cell.small-3
+          h5 Вид договора:
+          select#rate
+            each r in rates
+              option= r.name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
+        .cell.small-3.align-self-bottom
+          input.button.content-control(type="submit", value="Заключить договор")

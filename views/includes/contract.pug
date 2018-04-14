@@ -7,10 +7,10 @@ mixin contract_search()
             button.button.content-control(type='button' onclick="make_contract()") Заключить договор
       .cell.small-9
         ul.menu
-            li(style='width:80%')
+            li.li-style
               input.content-control(type='text' placeholder='Поиск...')
             li
-              button.button.content-control(type='button', style='margin-left: 0.5em') Искать
+              button.button.content-control.content-search(type='button') Искать
             
 mixin contract_table(contracts)
   table

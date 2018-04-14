@@ -7,11 +7,5 @@ block header
 block content
   include includes/contract.pug
   +contract_search()
-  -
-    var deposits = [
-      { id: '6', cl_s: 'Якушев', cl_n: 'Никифор', cl_p: 'Ермолаевич', emp_s: 'Полтанов', emp_n: 'Наум', emp_p: 'Наумович', amount: '-50000', per_rate: '0,03', balance: '50000', date: '2018-03-05', address: 'Брест' },
-      { id: '10', cl_s: 'Якушев', cl_n: 'Никифор', cl_p: 'Ермолаевич', emp_s: 'Полтанов', emp_n: 'Наум', emp_p: 'Наумович', amount: '-50000', per_rate: '0,03', balance: '10000', date: '2018-03-14', address: 'Гродно' },
-      { id: '11', cl_s: 'Лосевский', cl_n: 'Пимен', cl_p: 'Викентиевич', emp_s: 'Трутнев', emp_n: 'Роман', emp_p: 'Брониславович', amount: '10000', per_rate: '0,03', balance: '10000', date: '2018-03-14', address: 'Минск' }
-    ]
   h5 Депозиты
-  +contract_table(deposits)
+  +contract_table(data)
