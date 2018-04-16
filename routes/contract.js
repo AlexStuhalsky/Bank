@@ -28,7 +28,7 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   var on_success = function() {
     if (clients != null && employees != null && rates != null)
     {
-      res.render('make_contract', {
+      res.render('contract', {
         req: req,
         title: 'Договора',
         clients: clients,
@@ -42,7 +42,7 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   var on_failed = function() {
     if (!failed)
     {
-      res.render('make_contract', {
+      res.render('contract', {
         req: req,
         title: 'Договора',
         clients: [],

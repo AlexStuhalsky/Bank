@@ -7,25 +7,22 @@ block header
 block content
   .grid-container.fluid
     .grid-x.grid-margin-x
-      .cell.small-2.sticky-container(data-sticky-container="true")
+      .cell.small-2.sticky-container(data-sticky-container)
         .sticky(data-sticky, data-anchor="data", data-sticky-on="small")
-          ul.menu.vertical(data-magellan="true")
+          ul.menu.vertical(data-magellan)
             li: a(href="#active-contracts") Активные договора
             li: a(href="#graph") График выплат по договору
             li: a(href="#calculators") Калькулятор выплат
       .cell.small-10#data(data-something)
         div#active-contracts(data-something)
-          h5 Активные договора
-          img(src="/images/database.png")
-        div
-          img(src="/images/database.png")
+        label Имя клиента:
+        .grid-x
+          .cell.small-4
+            select#client
+              each c in clients
+                option= c.surname + ' ' + c.name + ' ' + c.patronymic
+        label Активные договора клиента:
+        table
+        
         div#graph
-          h5 График выплат по договору
-          img(src="/images/database.png")
-        div
-          img(src="/images/database.png")
         div#calculators
-          h5 Калькулятор выплат
-          img(src="/images/database.png")
-        div
-          img(src="/images/database.png")
