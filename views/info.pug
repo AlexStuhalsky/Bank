@@ -5,23 +5,18 @@ block header
   p О компании, отделах и сотрудниках
 
 block content
-  -
-    var employees = [
-      { surname: 'Романенко', name: 'Роман', patronymic: 'Александрович', birth: '08-08-1997', dep_num: '1' },
-      { surname: 'Стухальский', name: 'Алексей', patronymic: 'Леонидович', birth: '31-08-1998', dep_num: '2' },
-      { surname: 'Васильев', name: 'Иван', patronymic: 'Петрович', birth: '19-01-1986', dep_num: '3' }
-    ]
   .grid-container.fluid
     .grid-x.grid-margin-x
-      .cell.small-2
-        .menu.vertical
-          li: a.clients Клиенты 
-          li: a.employees Сотрудники
-          li: a.rates Тарифы
-          li: a.departments Отделы
-          li: a.positions Должности
-      .cell.small-9.auto
-        table
+      .cell.small-2.sticky-container(data-sticky-container="true")
+        .sticky(data-sticky, data-anchor="data", data-sticky-on="small")
+          ul.menu.vertical(data-magellan="true")
+            li: a.clients Клиенты 
+            li: a.employees Сотрудники
+            li: a.rates Тарифы
+            li: a.departments Отделы
+            li: a.positions Должности
+      .cell.small-10#data
+        table.vertical-fill
           tbody
             tr
               td

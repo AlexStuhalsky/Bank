@@ -81,8 +81,12 @@ body {
     width: 8em;
 }
 
-.content-control {
-    width: 100%;
+.vertical-fill {
+  height: 100%;
+}
+
+.horizontal-fill {
+  width: 100%;
 }
 
 .li-style {

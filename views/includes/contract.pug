@@ -4,13 +4,13 @@ mixin contract_search()
       .cell.small-3
         ul.menu
           li
-            button.button.content-control(type='button', onclick="window.location='contract';") Заключить договор
+            button.button.horizontal-fill(type='button', onclick="window.location='contract';") Заключить договор
       .cell.small-9
         ul.menu
             li.li-style
-              input.content-control(type='text' placeholder='Поиск...')
+              input.horizontal-fill(type='text' placeholder='Поиск...')
             li
-              button.button.content-control.content-search(type='button') Искать
+              button.button.horizontal-fill.content-search(type='button') Искать
             
 mixin contract_table(contracts)
   table
