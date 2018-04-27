@@ -1,0 +1,61 @@
+extends layout
+
+block header
+  h1 Редактирование записей 
+  p Редактируйте записи, исправляйте ошибки и вносите новые данные.
+
+block content
+  include includes/contract.pug
+  table#rates
+  .grid-container#rates_edit
+    .grid-x.grid-margin-x
+      .cell.small-4
+        input(type="text", name="", placeholder="Название...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Сумма...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Процент...")
+
+  table#clients
+  .grid-container#clients_edit
+    .grid-x.grid-margin-x
+      .cell.small-4
+        input(type="text", name="", placeholder="Фамилия...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Имя...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Отчество...")
+    .grid-x.grid-margin-x
+      .cell.small-6
+        input(type="text", name="", placeholder="Дата рождения...")
+      .cell.small-6
+        input(type="text", name="", placeholder="Адрес...")
+
+  table#employees
+  .grid-container#employees_edit
+    .grid-x.grid-margin-x
+      .cell.small-4
+        input(type="text", name="", placeholder="Фамилия...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Имя...")
+      .cell.small-4
+        input(type="text", name="", placeholder="Отчество...")
+    .grid-x.grid-margin-x
+      .cell.small-4
+        input(type="text", name="", placeholder="Дата рождения...")
+      .cell.small-4
+        select
+      .cell.small-4
+        select
+
+  table#departments
+  .grid-container#departments_edit
+    input(type="text", name="", placeholder="Адрес...")
+
+  table#positions
+  .grid-container#positions_edit
+    .grid-x.grid-margin-x
+      .cell.small-6
+        input(type="text", name="", placeholder="Должность...")
+      .cell.small-6
+        input(type="text", name="", placeholder="Оклад...")

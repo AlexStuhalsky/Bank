@@ -22,7 +22,7 @@ block content
           h5 Вид договора:
           select#rate
             each r in rates
-              option(value=r.rate_id)= r.rate_name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
+              option(value=r.rate_id)= r.rate_name + ' (' + Math.abs(r.amount) + ': ' + r.per_rate * 100 + '%)'
         .cell.small-3.align-self-bottom
           input(type="hidden", name="client_id")
           input(type="hidden", name="employee_id")

@@ -25,8 +25,7 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   };
 
   var on_failed = function() {
-    if (!failed)
-    {
+    if (!failed) {
       res.render('contract', {
         req: req,
         title: 'Договора',
@@ -55,8 +54,8 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   })
   .catch(on_failed);
 
-  var filter = contract_type == is_credit ? '>' : '<';
-  request.query('select rate_id, rate_name, abs(amount) as amount, per_rate from rates where amount ' + filter + ' 0')
+  var filter = is_credit ? '>' : '<';
+  request.query('select rate_id, rate_name, amount, per_rate from rates where amount ' + filter + ' 0')
   .then(function(records) {
     rates = records.recordset
     on_success();
