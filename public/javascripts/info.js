@@ -9,7 +9,8 @@ var translation = {
   "per_rate" : "Ставка",
   "rate_name" : "Название",
   "pos_name" : "Должность",
-  "salary" : "Зарплата"
+  "salary" : "Зарплата",
+  "dep_id" : "№ Отдела"
 };
 
 function renderTable(data) {

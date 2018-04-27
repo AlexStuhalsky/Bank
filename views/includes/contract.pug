@@ -29,7 +29,7 @@ mixin contract_table(contracts)
         td= c.client_surname + ' ' + c.client_name + ' ' + c.client_patronymic
         td= c.emp_surname + ' ' + c.emp_name + ' ' + c.emp_patronymic
         td= Math.abs(c.rate_amount)
-        td= c.per_rate
-        td= c.balance
+        td= c.per_rate * 100 + '%'
+        td= Math.abs(c.balance)
         td= c.date.toLocaleDateString()
         td= c.address

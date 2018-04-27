@@ -2,31 +2,15 @@ var mssql = require('mssql');
 var express = require('express');
 var router = express.Router();
 
-var clients = [
-  { surname: "Петров", name: "Иван", patronymic: "Анатолиевич" },
-  { surname: "Сидоров", name: "Дмитрий", patronymic: "Владимирович" },
-  { surname: "Успенская", name: "Анна", patronymic: "Петолвна" }
-]
-var employees = [
-  { surname: "Романенко", name: "Роман", patronymic: "Александрович" },
-  { surname: "Стухальский", name: "Алексей", patronymic: "Леонидович" },
-  { surname: "Васильев", name: "Иван", patronymic: "Петрович" }
-]
-var rates = [
-  { name: "Лёгкий", amount: "1000", per_rate: "0.05" },
-  { name: "Средний", amount: "2000", per_rate: "0.03" },
-  { name: "Тяжёлый", amount: "3000", per_rate: "0.01" }
-]
-
 router.get('/:type(credit|deposit)/contract', function(req, res, next) {
-  //var clients = null;
-  //var employees = null;
-  //var rates = null;
+  var clients = null;
+  var employees = null;
+  var rates = null;
   var contract_type = req.url.indexOf("credit") != -1 ? "кредита" : "депозита";
   var failed = false;
 
   var on_success = function() {
-    if (clients != null && employees != null && rates != null)
+    if (clients != null  && employees != null && rates != null)
     {
       res.render('contract', {
         req: req,
@@ -54,33 +38,56 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
     }
   }
   
-  on_success();
-  //var request = new mssql.Request();
-  //// request.query('select * from contracts_view where rate_amount < 0')
-  //request.query('select surname, name, patronymic from clients')
-  //.then(function(records) {
-  //  clients = records.recordset
-  //  on_success();
-  //})
-  //.catch(on_failed);
+  var request = new mssql.Request();
+  
+  request.query('select client_id, surname, name, patronymic from clients')
+  .then(function(records) {
+    clients = records.recordset
+    on_success();
+  })
+  .catch(on_failed);
 
-  //request.query('######### Get employees ############')
-  //.then(function(records) {
-  //  employees = records.recordset
-  //  on_success();
-  //})
-  //.catch(on_failed);
+  request.query('select emp_id, surname, name, patronymic from employees')
+  .then(function(records) {
+    employees = records.recordset
+    on_success();
+  })
+  .catch(on_failed);
 
-  //request.query('############# Get rates #############')
-  //.then(function(records) {
-  //  rates = records.recordset
-  //  on_success();
-  //})
-  //.catch(on_failed);
+  var filter = contract_type == "кредита" ? '>' : '<';
+  request.query('select rate_id, rate_name, abs(amount) as amount, per_rate from rates where amount ' + filter + ' 0')
+  .then(function(records) {
+    rates = records.recordset
+    on_success();
+  })
+  .catch(on_failed);
 });
 
-router.post('/:type(credit|deposit)/new', function(req, res, next) {
-  res.send("еххехее");
+router.post('/:type(credit|deposit)/contract', function(req, res, next) {
+  var url = req.url;
+  var is_credit = url.indexOf("credit") != -1;
+  var contract_type = is_credit ? "кредита" : "депозита";
+  
+  var client_id = req.body.client_id;
+  var employee_id = req.body.employee_id;
+  var rate_id = req.body.rate_id;
+
+  if (!client_id || !employee_id || !rate_id)
+  {
+    next({ status: 404, message: "Не выбран один или несколько необходимых пунктов"});
+    return;
+  }
+
+  var request = new mssql.Request();
+  
+  request.input('client_id', mssql.Int, client_id);
+  request.input('emp_id', mssql.Int, employee_id);
+  request.input('rate_id', mssql.Int, rate_id);
+  request.execute('make_contract', function (err) {
+    console.log(err);
+  });
+
+  res.redirect('/' + (is_credit ? "credit/" : "deposit/"));
 });
 
 module.exports = router;

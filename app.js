@@ -25,9 +25,7 @@ var config = {
   database: 'Bank'
 };
 
-pug.globals = [ "req" ];
-
-//mssql.connect(config).then(function () {
+mssql.connect(config).then(function () {
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
@@ -62,12 +60,15 @@ pug.globals = [ "req" ];
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error',
+    {
+      req: req
+    });
   });
-/*})
+})
 .catch(function(err)
 {
   console.log(err);
-});*/
+});
 
 module.exports = app;

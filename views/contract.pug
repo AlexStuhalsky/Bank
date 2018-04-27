@@ -5,23 +5,26 @@ block header
   p Заключайте договора на кредитной либо депозитной основе не выходя из дома.
 
 block content
-  form(action="new", method="post")
+  form(action="contract", method="post")
     .grid-container.fluid
       .grid-x.grid-margin-x
         .cell.small-3
           h5 Имя клиента:
           select#client
             each c in clients
-              option= c.surname + ' ' + c.name + ' ' + c.patronymic
+              option(value=c.client_id)= c.surname + ' ' + c.name + ' ' + c.patronymic
         .cell.small-3
           h5 Имя сотрудника:
           select#employee
             each e in employees
-              option= e.surname + ' ' + e.name + ' ' + e.patronymic
+              option(value=e.emp_id)= e.surname + ' ' + e.name + ' ' + e.patronymic
         .cell.small-3
           h5 Вид договора:
           select#rate
             each r in rates
-              option= r.name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
+              option(value=r.rate_id)= r.rate_name + ' (' + r.amount + ': ' + r.per_rate * 100 + '%)'
         .cell.small-3.align-self-bottom
+          input(type="hidden", name="client_id")
+          input(type="hidden", name="employee_id")
+          input(type="hidden", name="rate_id")
           input.button.horizontal-fill(type="submit", value="Заключить договор")
