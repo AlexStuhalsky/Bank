@@ -6,7 +6,8 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   var clients = null;
   var employees = null;
   var rates = null;
-  var contract_type = req.url.indexOf("credit") != -1 ? "кредита" : "депозита";
+  var is_credit = req.url.indexOf("credit") != -1;
+  var contract_type = is_credit ? "кредита" : "депозита";
   var failed = false;
 
   var on_success = function() {
@@ -54,7 +55,7 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   })
   .catch(on_failed);
 
-  var filter = contract_type == "кредита" ? '>' : '<';
+  var filter = contract_type == is_credit ? '>' : '<';
   request.query('select rate_id, rate_name, abs(amount) as amount, per_rate from rates where amount ' + filter + ' 0')
   .then(function(records) {
     rates = records.recordset
