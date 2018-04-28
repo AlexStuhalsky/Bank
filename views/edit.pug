@@ -6,56 +6,73 @@ block header
 
 block content
   include includes/contract.pug
-  table#rates
-  .grid-container#rates_edit
+  .grid-container.fluid
     .grid-x.grid-margin-x
-      .cell.small-4
-        input(type="text", name="", placeholder="Название...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Сумма...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Процент...")
+      .cell.small-2.sticky-container(data-sticky-container)
+        .sticky(data-sticky, data-anchor="data", data-sticky-on="small")
+          ul.menu.vertical(data-magellan)
+            li: a(href="#rates_table") Тарифы
+            li: a(href="#clients_table") Клиенты
+            li: a(href="#employees_table") Сотрудники
+            li: a(href="#departments_table") Отделы
+            li: a(href="#positions_table") Должности
 
-  table#clients
-  .grid-container#clients_edit
-    .grid-x.grid-margin-x
-      .cell.small-4
-        input(type="text", name="", placeholder="Фамилия...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Имя...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Отчество...")
-    .grid-x.grid-margin-x
-      .cell.small-6
-        input(type="text", name="", placeholder="Дата рождения...")
-      .cell.small-6
-        input(type="text", name="", placeholder="Адрес...")
+      .cell.small-10#data(data-something)
+        h5 Тарифы
+        table#rates_table
+        .grid-container#rates_edit
+          .grid-x.grid-margin-x
+            .cell.small-4
+              input(type="text", name="", placeholder="Название...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Сумма...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Процент...")
 
-  table#employees
-  .grid-container#employees_edit
-    .grid-x.grid-margin-x
-      .cell.small-4
-        input(type="text", name="", placeholder="Фамилия...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Имя...")
-      .cell.small-4
-        input(type="text", name="", placeholder="Отчество...")
-    .grid-x.grid-margin-x
-      .cell.small-4
-        input(type="text", name="", placeholder="Дата рождения...")
-      .cell.small-4
-        select
-      .cell.small-4
-        select
+        h5 Клиенты
+        table#clients_table
+        .grid-container#clients_edit
+          .grid-x.grid-margin-x
+            .cell.small-4
+              input(type="text", name="", placeholder="Фамилия...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Имя...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Отчество...")
+          .grid-x.grid-margin-x
+            .cell.small-6
+              input(type="text", name="", placeholder="Дата рождения...")
+            .cell.small-6
+              input(type="text", name="", placeholder="Адрес...")
 
-  table#departments
-  .grid-container#departments_edit
-    input(type="text", name="", placeholder="Адрес...")
+        h5 Сотрудники
+        table#employees_table
+        .grid-container#employees_edit
+          .grid-x.grid-margin-x
+            .cell.small-4
+              input(type="text", name="", placeholder="Фамилия...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Имя...")
+            .cell.small-4
+              input(type="text", name="", placeholder="Отчество...")
+          .grid-x.grid-margin-x
+            .cell.small-4
+              input(type="text", name="", placeholder="Дата рождения...")
+            .cell.small-4
+              select#department_select
+            .cell.small-4
+              select#position_select
 
-  table#positions
-  .grid-container#positions_edit
-    .grid-x.grid-margin-x
-      .cell.small-6
-        input(type="text", name="", placeholder="Должность...")
-      .cell.small-6
-        input(type="text", name="", placeholder="Оклад...")
+        h5 Отделы
+        table#departments_table
+        .grid-container#departments_edit
+          input(type="text", name="", placeholder="Адрес...")
+
+        h5 Должности
+        table#positions_table
+        .grid-container#positions_edit
+          .grid-x.grid-margin-x
+            .cell.small-6
+              input(type="text", name="", placeholder="Должность...")
+            .cell.small-6
+              input(type="text", name="", placeholder="Оклад...")

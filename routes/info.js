@@ -13,7 +13,6 @@ router.post('/info', function(req, res, next) {
   var type = req.body.type;
   var request = new mssql.Request();
 
-  console.log(type);
   if (type == "clients") {
     request.query('select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, balance from clients')
     .then(function(records) {
