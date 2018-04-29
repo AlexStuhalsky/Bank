@@ -32,9 +32,13 @@ block content
               input#rate_name(type="text", placeholder="Название...")
             .cell.small-3
               input#rate_amount(type="text", placeholder="Сумма...")
-            .cell.small-3
+            .cell.small-2
               input#rate_percent(type="text", placeholder="Процент...")
-            .cell.small-3
+            .cell.small-2
+              select#rate_select
+                option Кредит
+                option Депозит
+            .cell.small-2
               +functional-buttons("rates")
 
         h5#clients Клиенты

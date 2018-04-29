@@ -11,7 +11,8 @@ var translation = {
   "pos_name" : "Должность",
   "salary" : "Зарплата",
   "dep_id" : "№ Отдела",
-  "pos_id" : "ИД должности"
+  "pos_id" : "ИД должности",
+  "rate_type" : "Класс тарифа"
 };
 
 function cells_contain(cells, row_length, start_index, objects) {
@@ -65,18 +66,20 @@ function button_action() {
     var cells = $("#rates_table td");
     var row_length = $("#rates_table > tbody > tr:first > th").length;
     var rate = get_values("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "#rate_");
+    var contract_type = $("#rate_select option:selected").text();
 
     if (!is_str(rate.name) || !is_int(rate.amount) || !is_int(rate.percent)) {
       alert(error_message);
       return;
     }
 
-    if (cells_contain(cells, row_length, 1, rate.name, rate.amount, rate.percent)) {
+    if (cells_contain(cells, row_length, 2, rate.name, rate.amount, rate.percent)) {
       alert("Ошибка: название уже используется!");
       return;
     }
 
     rate.amount = parseInt(rate.amount);
+    rate.amount = contract_type == "Кредит" ? rate.amount : -1 * rate.amount;
     rate.percent = parseInt(rate.percent) / 100;
 
     if (act == "accept") {
@@ -94,6 +97,7 @@ function button_action() {
     }
 
     set_values("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "");
+    $("#rate_select option:first").attr('selected', 'selected');
   }
   else if (type == "clients") {
     var cells = $("#clients_table td");

@@ -44,7 +44,7 @@ router.post('/edit', function(req, res, next) {
     if (type.includes("insert")) {
       query += "insert into rates values (" + obj.amount + ", " + obj.percent + ", '" + obj.name + "', default, default);";
     }
-    query += "select rate_id as data_id, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;";
+    query += "select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;";
   }
   else if (type.includes("departments")) {
     if (type.includes("update")) {
