@@ -10,7 +10,8 @@ var translation = {
   "rate_name" : "Название",
   "pos_name" : "Должность",
   "salary" : "Зарплата",
-  "dep_id" : "№ Отдела"
+  "dep_id" : "№ Отдела",
+  "rate_type" : "Класс тарифа"
 };
 
 function renderTable(data) {

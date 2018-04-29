@@ -26,7 +26,7 @@ router.post('/info', function(req, res, next) {
     });
   }
   else if (type == "rates") {
-    request.query('select abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + \'%\' as per_rate, rate_name from rates')
+    request.query("select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;")
     .then(function(records) {
       res.json(records.recordset);
     });
