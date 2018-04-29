@@ -4,6 +4,11 @@ block header
   h1 Редактирование записей 
   p Редактируйте записи, исправляйте ошибки и вносите новые данные.
 
+mixin functional-buttons(group)
+  div.button-group.expanded
+    input.button(type="submit", group=group, act="accept", value="✓")
+    input.button(type="submit", group=group, act="add", value="+")
+
 block content
   include includes/contract.pug
   .grid-container.fluid
@@ -11,68 +16,85 @@ block content
       .cell.small-2.sticky-container(data-sticky-container)
         .sticky(data-sticky, data-anchor="data", data-sticky-on="small")
           ul.menu.vertical(data-magellan)
-            li: a(href="#rates_table") Тарифы
-            li: a(href="#clients_table") Клиенты
-            li: a(href="#employees_table") Сотрудники
-            li: a(href="#departments_table") Отделы
-            li: a(href="#positions_table") Должности
+            li: a(href="#rates") Тарифы
+            li: a(href="#clients") Клиенты
+            li: a(href="#employees") Сотрудники
+            li: a(href="#departments") Отделы
+            li: a(href="#positions") Должности
 
       .cell.small-10#data(data-something)
-        h5 Тарифы
+        h5#rates Тарифы
         table#rates_table
         .grid-container#rates_edit
           .grid-x.grid-margin-x
-            .cell.small-4
-              input(type="text", name="", placeholder="Название...")
-            .cell.small-4
-              input(type="text", name="", placeholder="Сумма...")
-            .cell.small-4
-              input(type="text", name="", placeholder="Процент...")
+            .cell.small-3
+              input#rate_data_id(type="hidden")
+              input#rate_name(type="text", placeholder="Название...")
+            .cell.small-3
+              input#rate_amount(type="text", placeholder="Сумма...")
+            .cell.small-3
+              input#rate_percent(type="text", placeholder="Процент...")
+            .cell.small-3
+              +functional-buttons("rates")
 
-        h5 Клиенты
+        h5#clients Клиенты
         table#clients_table
         .grid-container#clients_edit
           .grid-x.grid-margin-x
             .cell.small-4
-              input(type="text", name="", placeholder="Фамилия...")
+              input#client_data_id(type="hidden")
+              input#client_surname(type="text", placeholder="Фамилия...")
             .cell.small-4
-              input(type="text", name="", placeholder="Имя...")
+              input#client_name(type="text", placeholder="Имя...")
             .cell.small-4
-              input(type="text", name="", placeholder="Отчество...")
+              input#client_patronymic(type="text", placeholder="Отчество...")
           .grid-x.grid-margin-x
-            .cell.small-6
-              input(type="text", name="", placeholder="Дата рождения...")
-            .cell.small-6
-              input(type="text", name="", placeholder="Адрес...")
+            .cell.small-4
+              input#client_birth_date(type="date")
+            .cell.small-4
+              input#client_address(type="text", placeholder="Адрес...")
+            .cell.small-4
+              +functional-buttons("clients")
 
-        h5 Сотрудники
+        h5#employees Сотрудники
         table#employees_table
         .grid-container#employees_edit
           .grid-x.grid-margin-x
             .cell.small-4
-              input(type="text", name="", placeholder="Фамилия...")
+              input#employee_data_id(type="hidden")
+              input#employee_surname(type="text", placeholder="Фамилия...")
             .cell.small-4
-              input(type="text", name="", placeholder="Имя...")
+              input#employee_name(type="text", placeholder="Имя...")
             .cell.small-4
-              input(type="text", name="", placeholder="Отчество...")
+              input#employee_patronymic(type="text", placeholder="Отчество...")
           .grid-x.grid-margin-x
-            .cell.small-4
-              input(type="text", name="", placeholder="Дата рождения...")
-            .cell.small-4
+            .cell.small-3
+              input#employee_birth_date(type="date")
+            .cell.small-3
               select#department_select
-            .cell.small-4
+            .cell.small-3
               select#position_select
+            .cell.small-3
+              +functional-buttons("employees")
 
-        h5 Отделы
+        h5#departments Отделы
         table#departments_table
         .grid-container#departments_edit
-          input(type="text", name="", placeholder="Адрес...")
+          .grid-x.grid-margin-x
+            .cell.small-10
+              input#department_data_id(type="hidden")
+              input#department_address(type="text", placeholder="Адрес...")
+            .cell.small-2
+              +functional-buttons("departments")
 
-        h5 Должности
+        h5#positions Должности
         table#positions_table
         .grid-container#positions_edit
           .grid-x.grid-margin-x
-            .cell.small-6
-              input(type="text", name="", placeholder="Должность...")
-            .cell.small-6
-              input(type="text", name="", placeholder="Оклад...")
+            .cell.small-4
+              input#position_data_id(type="hidden")
+              input#position_name(type="text", placeholder="Должность...")
+            .cell.small-4
+              input#position_salary(type="text", placeholder="Оклад...")
+            .cell.small-4
+              +functional-buttons("positions")
