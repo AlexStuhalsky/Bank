@@ -1,5 +1,4 @@
-function choice()
-{
+function choice() {
   var id = $(this).val();
   $("input[name=" + this.id + "_id]").val(id);
 }

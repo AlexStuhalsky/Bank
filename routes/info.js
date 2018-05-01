@@ -12,37 +12,30 @@ router.get('/info', function(req, res, next) {
 router.post('/info', function(req, res, next) {
   var type = req.body.type;
   var request = new mssql.Request();
+  var query = "";
 
-  if (type == "clients") {
-    request.query('select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, balance from clients')
-    .then(function(records) {
-      res.json(records.recordset);
-    });
+  switch (type) {
+  case "clients":
+    query = 'select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, balance from clients';
+    break;
+  case "employees":
+    query = 'select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, pos_name from employees_view';
+    break;
+  case "rates":
+    query = "select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;";
+    break;
+  case "departments":
+    query = 'select dep_id, address from departments';
+    break;
+  case "positions":
+    query = 'select pos_name, salary from positions';
+    break;
   }
-  else if (type == "employees") {
-    request.query('select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, pos_name from employees_view')
-    .then(function(records) {
-      res.json(records.recordset);
-    });
-  }
-  else if (type == "rates") {
-    request.query("select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;")
-    .then(function(records) {
-      res.json(records.recordset);
-    });
-  }
-  else if (type == "departments") {
-    request.query('select dep_id, address from departments')
-    .then(function(records) {
-      res.json(records.recordset);
-    });
-  }
-  else if (type == "positions") {
-    request.query('select pos_name, salary from positions')
-    .then(function(records) {
-      res.json(records.recordset);
-    });
-  }
+
+  request.query(query)
+  .then(function(records) {
+    res.json(records.recordset);
+  });
 });
 
 module.exports = router;

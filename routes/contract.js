@@ -39,7 +39,6 @@ router.get('/:type(credit|deposit)/contract', function(req, res, next) {
   }
   
   var request = new mssql.Request();
-  
   request.query('select client_id, surname, name, patronymic from clients')
   .then(function(records) {
     clients = records.recordset
@@ -72,14 +71,12 @@ router.post('/:type(credit|deposit)/contract', function(req, res, next) {
   var employee_id = req.body.employee_id;
   var rate_id = req.body.rate_id;
 
-  if (!client_id || !employee_id || !rate_id)
-  {
-    next({ status: 404, message: "Не выбран один или несколько необходимых пунктов"});
+  if (!client_id || !employee_id || !rate_id) {
+    next({status: 404, message: "Не выбран один или несколько необходимых пунктов"});
     return;
   }
 
   var request = new mssql.Request();
-  
   request.input('client_id', mssql.Int, client_id);
   request.input('emp_id', mssql.Int, employee_id);
   request.input('rate_id', mssql.Int, rate_id);

@@ -1,9 +1,9 @@
 function fromPx(px) {
-	return parseFloat(px.substring(0, px.length - 2));
+	return parseFloat(px);
 }
 
 function toPx(px) {
-	return px.toString() + "px";
+	return px + "px";
 }
 
 var resize_coeff = 0.08;
