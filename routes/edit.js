@@ -39,7 +39,7 @@ router.post('/edit', function(req, res, next) {
   }
   else if (type.includes("rates")) {
     if (type.includes("update")) {
-      query += "update rates set rate_name = '" + obj.name + "', per_rate = " + obj.percent + ", amount = " + obj.amount + " where rate_id = " + obj.data_id + ";";
+      query += "update rates set rate_name = '" + obj.name + "' where rate_id = " + obj.data_id + ";";
     }
     if (type.includes("insert")) {
       query += "insert into rates values (" + obj.amount + ", " + obj.percent + ", '" + obj.name + "', default, default);";
