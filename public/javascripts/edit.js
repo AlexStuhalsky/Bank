@@ -54,12 +54,12 @@ function set_values(selectors, values) {
   }
 }
 
-function get_values(selectors, suffix) {
-  var length = arguments.length;
-  var s = arguments[length - 1];
+function get_values(args) {
+  var length = args.length;
+  var s = args[length - 1];
   var res = {};
   for (var i = 0; i < length - 1; i++) {
-    var el = arguments[i];
+    var el = args[i];
     res[el.replace(s, "")] = $(el).val();
   }
   return res;
@@ -75,206 +75,133 @@ function button_action() {
   var field_data_error = "Ошибка: одно из полей не введено или содержит ошибку!";
   var invalid_record_error = "Ошбика: невозможно редактировать несуществующую запись!";
 
-  switch (type) {
-    case "rates":
-      var rate = get_values("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "#rate_");
-      rate.rate_type = $("#rate_select").val();
+  var generate_query = function(name, value_array) {
+    var object = get_values(value_array);
+    object.type = (act == "accept") ? name + " update" : name + " insert";
+    return object;
+  };
 
-      if (!is_str(rate.name) || !is_int(rate.amount) || !is_int(rate.percent)) {
-        alert(field_data_error);
-        return;
-      }
+  try {
+    switch (type) {
+      case "rates":
+        var rate = generate_query("rates", [ "#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "#rate_" ])
+        rate.rate_type = $("#rate_select").val();
 
-      if (cells_contain(cells, row_length, 1, rate.rate_type, rate.name, rate.amount, rate.percent)) {
-        alert("Ошибка: тариф с такими данными уже используется!");
-        return;
-      }
+        if (!is_str(rate.name) || !is_int(rate.amount) || !is_int(rate.percent))
+          throw field_data_error;
 
-      rate.amount = parseInt(rate.amount);
-      rate.amount = rate.rate_type == "Кредит" ? rate.amount : -1 * rate.amount;
-      rate.percent = parseInt(rate.percent) / 100;
+        if (cells_contain(cells, row_length, 1, rate.rate_type, rate.name, rate.amount, rate.percent))
+          throw "Ошибка: тариф с такими данными уже используется!";
 
-      if (act == "accept") {
-        if (!is_str(rate.data_id)) {
-          alert(invalid_record_error);
-          return;
-        }
+        if (act == "accept" && !is_str(rate.data_id))
+          throw invalid_record_error;
 
-        rate.type = "rates update";
+        rate.amount = parseInt(rate.amount);
+        rate.amount = rate.rate_type == "Кредит" ? rate.amount : -1 * rate.amount;
+        rate.percent = parseInt(rate.percent) / 100;
+
         ajax(rate, function (data) {
           renderTable("#rates_table", data);
-        }, on_failed);
-      }
+        });
 
-      if (act == "add") {
-        rate.type = "rates insert";
-        ajax(rate, function (data) {
-          renderTable("#rates_table", data);
-        }, on_failed);
-      }
-      set_value("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "");
-      $("#rate_select").val($("#rate_select option:first").text());
-      break;
+        set_value("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "");
+        $("#rate_select").val($("#rate_select option:first").text());
+        break;
 
-    case "clients":
-      var client = get_values("#client_surname", "#client_name", "#client_patronymic", "#client_birth_date", "#client_address", "#client_data_id", "#client_");
+      case "clients":
+        var client = generate_query("clients", [ "#client_surname", "#client_name", "#client_patronymic", "#client_birth_date", "#client_address", "#client_data_id", "#client_" ])
 
-      if (!is_str(client.surname) || !is_str(client.name) || !is_str(client.patronymic) || !is_str(client.birth_date) || !is_str(client.address)) {
-        alert(field_data_error);
-        return;
-      }
+        if (!is_str(client.surname) || !is_str(client.name) || !is_str(client.patronymic) || !is_str(client.birth_date) || !is_str(client.address))
+          throw field_data_error;
 
-      if (cells_contain(cells, row_length, 1, client.surname, client.name, client.patronymic, client.birth_date, client.address)) {
-        alert("Ошибка: клиент с такими данными состоит в базе данных!");
-        return;
-      }
+        if (cells_contain(cells, row_length, 1, client.surname, client.name, client.patronymic, client.birth_date, client.address))
+          throw "Ошибка: клиент с такими данными состоит в базе данных!";
 
-      if (act == "accept") {
-        if (!is_str(client.data_id)) {
-          alert(invalid_record_error);
-          return;
-        }
-        client.type = "clients update";
+        if (act == "accept" && !is_str(client.data_id))
+          throw invalid_record_error;
+
         ajax(client, function (data) {
           renderTable("#clients_table", data);
-        }, on_failed);
-      }
+        });
 
-      if (act == "add") {
-        client.type = "clients insert";
-        ajax(client, function (data) {
-          renderTable("#clients_table", data);
-        }, on_failed);
-      }
-      set_value("#client_surname", "#client_name", "#client_patronymic", "#client_birth_date", "#client_address", "#client_data_id", "");
-      break;
+        set_value("#client_surname", "#client_name", "#client_patronymic", "#client_birth_date", "#client_address", "#client_data_id", "");
+        break;
 
-    case "employees":
-      var emp = get_values("#employee_surname", "#employee_name", "#employee_patronymic", "#employee_birth_date", "#employee_data_id", "#employee_");
-      emp.address = $("#department_select").val();
-      emp.pos_name = $("#position_select").val();
+      case "employees":
+        var emp = generate_query("employees", [ "#employee_surname", "#employee_name", "#employee_patronymic", "#employee_birth_date", "#employee_data_id", "#employee_" ]);
+        emp.address = $("#department_select").val();
+        emp.pos_name = $("#position_select").val();
 
-      if (!is_str(emp.surname) || !is_str(emp.name) || !is_str(emp.patronymic) || !is_str(emp.birth_date)) {
-        alert(field_data_error);
-        return;
-      }
+        if (!is_str(emp.surname) || !is_str(emp.name) || !is_str(emp.patronymic) || !is_str(emp.birth_date))
+          throw field_data_error;
 
-      if (cells_contain(cells, row_length, 1, emp.surname, emp.name, emp.patronymic, emp.birth_date, emp.address, emp.position)) {
-        alert("Ошибка: сотрудник с такими данными состоит в базе данных!");
-        return;
-      }
+        if (cells_contain(cells, row_length, 1, emp.surname, emp.name, emp.patronymic, emp.birth_date, emp.address, emp.position))
+          throw "Ошибка: сотрудник с такими данными состоит в базе данных!";
 
-      if (act == "accept") {
-        if (!is_str(emp.data_id)) {
-          alert(invalid_record_error);
-          return;
-        }
-
-        emp.type = "employees update";
+        if (act == "accept" && !is_str(emp.data_id))
+          throw invalid_record_error;
+        
         ajax(emp, function (data) {
           renderTable("#employees_table", data);
-        }, on_failed);
-      }
+        });
 
-      if (act == "add") {
-        emp.type = "employees insert";
-        ajax(emp, function (data) {
-          renderTable("#employees_table", data);
-        }, on_failed);
-      }
+        set_value("#employee_surname", "#employee_name", "#employee_patronymic", "#employee_birth_date", "#employee_data_id", "");
+        $("#department_select").val($("#department_select option:first").text());
+        $("#position_select").val($("#position_select option:first").text());
+        break;
 
-      set_value("#employee_surname", "#employee_name", "#employee_patronymic", "#employee_birth_date", "#employee_data_id", "");
-      $("#department_select").val($("#department_select option:first").text());
-      $("#position_select").val($("#position_select option:first").text());
-      break;
+      case "departments":
+        var dep = generate_query("departments", [ "#department_address", "#department_data_id", "#department_" ])
 
-    case "departments":
-      var dep = get_values("#department_address", "#department_data_id", "#department_");
+        if (!is_str(dep.address))
+          throw field_data_error;
 
-      if (!is_str(dep.address)) {
-        alert(field_data_error);
-        return;
-      }
+        if (cells_contain(cells, row_length, 2, dep.address))
+          throw "Ошибка: отдел с таким адресом уже зарегистрирован!";
 
-      if (cells_contain(cells, row_length, 2, dep.address)) {
-        alert("Ошибка: отдел с таким адресом уже зарегистрирован!");
-        return;
-      }
+        if (act == "accept" && !is_str(dep.data_id))
+          throw invalid_record_error;
 
-      if (act == "accept") {
-        if (!is_str(dep.data_id)) {
-          alert(invalid_record_error);
-          return;
-        }
-
-        dep.type = "departments update";
         ajax(dep, function (data) {
           renderTable("#departments_table", data);
           ajax({
             type: "employees"
           }, function (data) {
             renderTable("#employees_table", data);
-          }, on_failed);
-        }, on_failed);
-      }
+          });
+        });
 
-      if (act == "add") {
-        dep.type = "departments insert";
-        ajax(dep, function (data) {
-          renderTable("#departments_table", data);
-          ajax({
-            type: "employees"
-          }, function (data) {
-            renderTable("#employees_table", data);
-          }, on_failed);
-        }, on_failed);
-      }
-      set_value("#department_address", "#department_data_id", "");
-      break;
+        set_value("#department_address", "#department_data_id", "");
+        break;
 
-    case "positions":
-      var pos = get_values("#position_name", "#position_salary", "#position_data_id", "#position_");
+      case "positions":
+        var pos = generate_query("positions", [ "#position_name", "#position_salary", "#position_data_id", "#position_" ])
 
-      if (!is_str(pos.name) || !is_int(pos.salary)) {
-        alert(field_data_error);
-        return;
-      }
+        if (!is_str(pos.name) || !is_int(pos.salary))
+          throw field_data_error;
 
-      if (cells_contain(cells, row_length, 2, pos.name, pos.salary)) {
-        alert("Ошибка: должность с таким названием уже существует!");
-        return;
-      }
+        if (cells_contain(cells, row_length, 2, pos.name, pos.salary))
+          throw "Ошибка: должность с таким названием уже существует!";
 
-      pos.salary = parseInt(pos.salary);
+        if (act == "accept" && !is_str(pos.data_id))
+          throw invalid_record_error;
 
-      if (act == "accept") {
-        if (!is_str(pos.data_id)) {
-          alert(invalid_record_error);
-          return;
-        }
+        pos.salary = parseInt(pos.salary);
 
-        pos.type = "positions update";
         ajax(pos, function (data) {
           renderTable("#positions_table", data);
           ajax({
             type: "employees"
           }, function (data) {
             renderTable("#employees_table", data);
-          }, on_failed);
-        }, on_failed);
-      }
-      if (act == "add") {
-        pos.type = "positions insert";
-        ajax(pos, function (data) {
-          renderTable("#positions_table", data);
-          ajax({
-            type: "employees"
-          }, function (data) {
-            renderTable("#employees_table", data);
-          }, on_failed);
-        }, on_failed);
-      }
-      set_value("#position_name", "#position_salary", "#position_data_id", "");
+          });
+        });
+
+        set_value("#position_name", "#position_salary", "#position_data_id", "");
+    }
+  }
+  catch (error_message) {
+    alert(error_message);
   }
 }
 
@@ -346,7 +273,7 @@ function renderTable(table_name, data) {
   });
 }
 
-function ajax(data, on_success, on_failed) {
+function ajax(data, on_success, failed=on_failed) {
   $.ajax({
     method: "POST",
     url: "/edit",
@@ -354,7 +281,7 @@ function ajax(data, on_success, on_failed) {
     data: data
   })
     .done(on_success)
-    .fail(on_failed);
+    .fail(failed);
 }
 
 var on_failed = function (jqXHR, textStatus) {
