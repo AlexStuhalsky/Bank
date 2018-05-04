@@ -13,6 +13,8 @@ $(function () {
   $(".menu > li").map(function() {
     this.onclick = select.bind(this);
   });
+
+  $("#client").change(changed);
 });
 
 function renderTable(data) {
@@ -36,28 +38,29 @@ function renderTable(data) {
   }
 }
 
+function on_failed(jqXHR, textStatus) {
+  console.log("Request failed: " + textStatus);
+}
+
 function changed() {
-  var value = $("#client").find(":selected").text();
-  var splitted_value = value.split(' ');
-  
-  var client = { 
-    surname: splitted_value[0],
-    name: splitted_value[1],
-    patronymic: splitted_value[2]
-  };
+  var client_id = $("#client_select").find(":selected").attr("client_id");
+
+  alert(client_id);
 
   $.ajax({
     method: "POST",
     url: "/user",
     cache: false,
-    data: client 
+    data: {
+      type: "contracts",
+      client_id: client_id
+    } 
   })
-  .done(renderTable)
-  .fail(function (jqXHR, textStatus) {
-    console.log("Request failed: " + textStatus);
-  });
+  .done(function (data) {
+    $("#contract_select").empty();
+    for(var object of data) {
+      $("#contract_select").append('<option contract_id="' + object.contract_id + '">' + object.contract_id + ": " + object.amount + '</option>');
+    }
+  })
+  .fail(on_failed);
 }
-
-$(function () {
-  $("#client").change(changed);
-});

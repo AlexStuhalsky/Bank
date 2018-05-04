@@ -1,39 +1,35 @@
 var express = require('express');
 var router = express.Router();
-
-var clients = [
-  { surname: "Петров", name: "Иван", patronymic: "Анатолиевич" },
-  { surname: "Сидоров", name: "Дмитрий", patronymic: "Владимирович" },
-  { surname: "Успенская", name: "Анна", patronymic: "Петолвна" }
-]
+var mssql = require('mssql');
 
 router.get('/user', function(req, res, next) {
-  res.render('user', {
-    req: req,
-    clients: clients,
-    title: 'Личный кабинет'
+  var request = new mssql.Request();
+  request.query('select client_id, surname, name, patronymic from clients;')
+  .then(function(records) {
+    res.render('user', {
+      req: req,
+      clients: records.recordset,
+      title: 'Личный кабинет'
+    });
   });
 });
 
-var contracts = [
-  { surname: "Петров", name: "Иван", patronymic: "Анатолиевич", contract_type: "Лёкгий" },
-  { surname: "Сидоров", name: "Дмитрий", patronymic: "Владимирович", contract_type: "Средний"  },
-  { surname: "Успенская", name: "Анна", patronymic: "Петолвна", contract_type: "Тяжёлый" }
-] 
+router.post('/user', function(req, res, next) { 
+  var request = new mssql.Request();
 
-router.post('/user', function(req, res, next) {
-  var surname = req.body.surname;
-  var name = req.body.name;
-  var patronymic = req.body.patronymic;
+  var type = req.body.type;
 
-  var result = [];
-  for(var c of clients) {
-    if (c.surname == surname && c.name == name && c.patronymic == patronymic) {
-      result.push(c);
-    }
+  var query = "";
+  switch(type) {
+  case "contracts": 
+    query = "select contract_id, abs(amount) as amount from contracts where client_id = " + body.req.client_id + ";";
+    break;
   }
 
-  res.json(result);
+  request.query(query)
+  .then(function(records) {
+    res.json(records.recordset);
+  });
 });
 
 module.exports = router;

@@ -3,7 +3,16 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/edit', function(req, res, next) {
-  res.render('edit', {
+  var view = req.query.type == "clients" ||
+             req.query.type == "employees" ||
+             req.query.type == "rates" ||
+             req.query.type == "positions" ||
+             req.query.type == "departments" ? "edit_components" : "edit";
+  console.log(view);
+  res.set({
+    'Cache-Control': 'no-cache'
+  });
+  res.render(view, {
     req: req,
     title: 'Редактирование записей'
   });  

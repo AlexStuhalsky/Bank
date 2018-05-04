@@ -15,14 +15,15 @@ block content
             li: a(href="#calculators") Калькулятор выплат
       .cell.small-10#data(data-something)
         div#active-contracts(data-something)
-        label Имя клиента:
-        .grid-x
-          .cell.small-4
-            select#client
+        .grid-x.grid-margin-x
+          .cell.small-6
+            label Имя клиента:
+            select#client_select
               each c in clients
-                option= c.surname + ' ' + c.name + ' ' + c.patronymic
-        label Активные договора клиента:
-        table
-        
+                option(client_id = c.client_id)= c.surname + ' ' + c.name + ' ' + c.patronymic
+          .cell.small-6
+            label Активные договора клиента:
+            select#contract_select
+        div#table        
         div#graph
         div#calculators

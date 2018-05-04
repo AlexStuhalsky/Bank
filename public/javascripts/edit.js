@@ -35,7 +35,7 @@ function is_int(number) {
 }
 
 function is_str(line) {
-  return line != "";
+  return line.trim() != "";
 }
 
 function set_value(selectors, value) {
