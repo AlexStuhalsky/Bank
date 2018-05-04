@@ -8,7 +8,6 @@ router.get('/edit', function(req, res, next) {
              req.query.type == "rates" ||
              req.query.type == "positions" ||
              req.query.type == "departments" ? "edit_components" : "edit";
-  console.log(view);
   res.set({
     'Cache-Control': 'no-cache'
   });
