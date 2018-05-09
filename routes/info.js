@@ -21,8 +21,11 @@ router.post('/info', function(req, res, next) {
   case "employees":
     query = 'select surname, name, patronymic, convert(varchar(10), birth_date, 120) as birth_date, address, pos_name from employees_view';
     break;
-  case "rates":
-    query = "select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;";
+  case "deposits":
+    query = "select rate_id as data_id, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates where amount < 0;";
+    break;
+  case "credits":
+    query = "select rate_id as data_id, rate_name, amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates where amount > 0;";
     break;
   case "departments":
     query = 'select dep_id, address from departments';

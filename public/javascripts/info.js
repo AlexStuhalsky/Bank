@@ -12,14 +12,15 @@ function load(file, success, failed=on_failed, path="/javascripts/includes/") {
 }
 
 function select() {
-  $(".menu > li").attr("class", "");
+  $(".is-active").removeAttr("class");
   $(this).attr("class", "is-active");
-  var request_type = $(this).children().first().attr("class");
+
+  var type = $(".menu > li[class] > a").attr("class");
   $.ajax({
     method: "POST",
     url: "/info",
     cache: false,
-    data: { type: request_type }
+    data: { type: type }
   })
   .done(function (data) {
     renderTable("table", data);
