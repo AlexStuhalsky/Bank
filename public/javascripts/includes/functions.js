@@ -70,10 +70,21 @@ function edit_button_click() {
                 cells[i + 2].innerHTML, cells[i + 3].innerHTML, data_id);
 }
 
+function edit_ajax(data, success, method="POST", failed=on_failed) {
+  $.ajax({
+    method: method,
+    url: "/edit",
+    cache: false,
+    data: data
+  })
+  .done(success)
+  .fail(failed);
+}
+
 function change() {
   var val = $(this).val();
   var filter = val == "Кредиты" ? "> 0" : "< 0";
-  ajax({type: "rates", filter: filter }, function (data) {
+  edit_ajax({type: "rates", filter: filter }, function (data) {
     renderEditTable("#rates_table", data);
   });
 }
@@ -115,7 +126,7 @@ function button_action() {
         rate.amount = is_credit ? rate.amount : -rate.amount;
         rate.percent = parseInt(rate.percent) / 100;
 
-        ajax(rate, function (data) {
+        edit_ajax(rate, function (data) {
           renderEditTable("#rates_table", data);
         });
 
@@ -134,7 +145,7 @@ function button_action() {
         if (act == "accept" && !(client.data_id))
           throw invalid_record_error;
 
-        ajax(client, function (data) {
+        edit_ajax(client, function (data) {
           renderEditTable("#clients_table", data);
         });
 
@@ -155,7 +166,7 @@ function button_action() {
         if (act == "accept" && !(emp.data_id))
           throw invalid_record_error;
         
-        ajax(emp, function (data) {
+        edit_ajax(emp, function (data) {
           renderEditTable("#employees_table", data);
         });
 
@@ -176,9 +187,9 @@ function button_action() {
         if (act == "accept" && !(dep.data_id))
           throw invalid_record_error;
 
-        ajax(dep, function (data) {
+        edit_ajax(dep, function (data) {
           renderEditTable("#departments_table", data);
-          ajax({
+          edit_ajax({
             type: "employees"
           }, function (data) {
             renderEditTable("#employees_table", data);
@@ -202,9 +213,9 @@ function button_action() {
 
         pos.salary = parseInt(pos.salary);
 
-        ajax(pos, function (data) {
+        edit_ajax(pos, function (data) {
           renderEditTable("#positions_table", data);
-          ajax({
+          edit_ajax({
             type: "employees"
           }, function (data) {
             renderEditTable("#employees_table", data);

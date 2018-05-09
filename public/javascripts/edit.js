@@ -2,17 +2,6 @@ var on_failed = function (jqXHR, textStatus) {
   console.log("Request failed: " + textStatus);
 };
 
-function ajax(data, success, method="POST", failed=on_failed) {
-  $.ajax({
-    method: method,
-    url: "/edit",
-    cache: false,
-    data: data
-  })
-  .done(success)
-  .fail(failed);
-}
-
 function load(file, success, failed=on_failed, path="/javascripts/includes/") {
   $.ajax({
     url: path + file + ".js",
@@ -34,11 +23,17 @@ $(function() {
     }
   }
 
-  ajax(null, function(data) {
+  $.ajax({
+    method: "GET",
+    url: "/edit",
+    cache: false
+  })
+  .done(function(data) {
     $("#data").append(data);
     page = true;
     loaded();
-  }, "GET");
+  })
+  .fail(on_failed);
 
   load("functions", function() {
     functions = true;
@@ -74,26 +69,26 @@ var on_load = function() {
     this.onclick = button_action.bind(this);
   });
 
-  ajax({ type: "rates", filter: "> 0" }, function (data) {
+  edit_ajax({ type: "rates", filter: "> 0" }, function (data) {
     renderEditTable("#rates_table", data);
   });
 
-  ajax({ type: "clients" }, function (data) {
+  edit_ajax({ type: "clients" }, function (data) {
     renderEditTable("#clients_table", data);
   });
 
-  ajax({ type: "employees" }, function (data) {
+  edit_ajax({ type: "employees" }, function (data) {
     renderEditTable("#employees_table", data);
   });
 
-  ajax({ type: "departments" }, function (data) {
+  edit_ajax({ type: "departments" }, function (data) {
     renderEditTable("#departments_table", data);
     $("#department_select").empty();
     for (var object of data) 
       $("#department_select").append('<option dep_id="' + object.dep_id + '">' + object.address + '</option>');
   });
 
-  ajax({ type: "positions" }, function (data) {
+  edit_ajax({ type: "positions" }, function (data) {
     renderEditTable("#positions_table", data);
     $("#position_select").empty();
     for (var object of data) 

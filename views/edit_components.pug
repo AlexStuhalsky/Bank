@@ -7,7 +7,7 @@ mixin functional-buttons(group)
 - var show_all = (query == undefined);
 
 if (show_all || query.includes("rates"))
-  .grid-container.align-middle
+  .grid-container.align-middle.no-margin
     .grid-x
       .cell.shrink
         h5.top-margin#rates Тарифы:&nbsp
@@ -15,6 +15,7 @@ if (show_all || query.includes("rates"))
         select#rate_select
           option Кредиты
           option Депозиты
+      .cell.auto
   table#rates_table
   .grid-container#rates_edit
     .grid-x.grid-margin-x
