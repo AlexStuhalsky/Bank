@@ -69,8 +69,11 @@ body {
     padding: 0.5rem;
 }
 
-.small {
-    width: 2.5rem;
+.edit-button {
+    margin: 0 0 0 0;
+    font-size: 0.38rem;
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .no-margin {

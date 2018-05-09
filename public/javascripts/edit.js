@@ -15,6 +15,21 @@ var translation = {
   "rate_type": "Класс тарифа"
 };
 
+var on_failed = function (jqXHR, textStatus) {
+  console.log("Request failed: " + textStatus);
+};
+
+function ajax(data, on_success, method="POST", failed=on_failed) {
+  $.ajax({
+    method: method,
+    url: "/edit",
+    cache: false,
+    data: data
+  })
+  .done(on_success)
+  .fail(failed);
+}
+
 function cells_contain(cells, row_length, start_index, objects) {
   for (var i = 0; i < cells.length / row_length; i++) {
     var cnt = 0;
@@ -273,27 +288,12 @@ function renderTable(table_name, data) {
   });
 }
 
-function ajax(data, on_success, failed=on_failed) {
-  $.ajax({
-    method: "POST",
-    url: "/edit",
-    cache: false,
-    data: data
-  })
-    .done(on_success)
-    .fail(failed);
-}
-
-var on_failed = function (jqXHR, textStatus) {
-  console.log("Request failed: " + textStatus);
-};
-
 function select() {
   $(".menu > li").attr("class", "");
   $(this).attr("class", "is-active");
 }
 
-$(function () {
+ var on_load = function () {
   $(".menu > li").map(function () {
     this.onclick = select.bind(this);
   });
@@ -304,15 +304,15 @@ $(function () {
 
   ajax({ type: "rates" }, function (data) {
     renderTable("#rates_table", data);
-  }, on_failed);
+  });
 
   ajax({ type: "clients" }, function (data) {
     renderTable("#clients_table", data);
-  }, on_failed);
+  });
 
   ajax({ type: "employees" }, function (data) {
     renderTable("#employees_table", data);
-  }, on_failed);
+  });
 
   ajax({ type: "departments" }, function (data) {
     renderTable("#departments_table", data);
@@ -320,7 +320,7 @@ $(function () {
     for (var object of data) {
       $("#department_select").append('<option dep_id="' + object.dep_id + '">' + object.address + '</option>');
     }
-  }, on_failed);
+  });
 
   ajax({ type: "positions" }, function (data) {
     renderTable("#positions_table", data);
@@ -328,5 +328,12 @@ $(function () {
     for (var object of data) {
       $("#position_select").append('<option pos_id="' + object.pos_id + '">' + object.pos_name + '</option>');
     }
-  }, on_failed);
+  });
+};
+
+$(function() {
+  ajax({}, function (data) {
+    $("#data").append(data);
+    on_load();
+  }, "GET");
 });

@@ -11,19 +11,26 @@ mixin contract_search()
               input.horizontal-fill(type='text' placeholder='Поиск...')
             li
               button.button.horizontal-fill.content-search(type='button') Искать
-            
+
+mixin edit_button(type)
+  button.button.edit-button.hollow(edit_type=type) ✎
+
 mixin contract_table(contracts)
   table
     tr
       th №
-      th ФИО клиента
-      th ФИО сотрудника
-      th Тариф
+      th ФИО клиента 
+        +edit_button("clients")
+      th ФИО сотрудника 
+        +edit_button("employees")
+      th Тариф 
+        +edit_button("rates")
       th Сумма
       th Процент
       th Баланс
       th Дата
-      th Адрес
+      th Адрес 
+        +edit_button("departments")
     each c in contracts 
       tr.text-center
         td= c.contract_id
@@ -35,3 +42,6 @@ mixin contract_table(contracts)
         td= Math.abs(c.balance)
         td= c.date.toLocaleDateString()
         td= c.address
+
+mixin edit_area()
+  div#data_area

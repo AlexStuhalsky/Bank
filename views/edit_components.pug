@@ -3,8 +3,10 @@ mixin functional-buttons(group)
     input.button(type="submit", group=group, act="accept", value="✓")
     input.button(type="submit", group=group, act="add", value="+")
 
-- var show_all = req.query.type == "";
-if (show_all || req.query.type == "rates")
+- var query = req.query.type;
+- var show_all = (query == undefined);
+
+if (show_all || query.includes("rates"))
   h5#rates Тарифы
   table#rates_table
   .grid-container#rates_edit
@@ -23,7 +25,7 @@ if (show_all || req.query.type == "rates")
       .cell.small-2
         +functional-buttons("rates")
 
-if (show_all || req.query.type == "clients")
+if (show_all || query.includes("clients"))
   h5#clients Клиенты
   table#clients_table
   .grid-container#clients_edit
@@ -43,7 +45,7 @@ if (show_all || req.query.type == "clients")
       .cell.small-4
         +functional-buttons("clients")
 
-if (show_all || req.query.type == "employees")
+if (show_all || query.includes("employees"))
   h5#employees Сотрудники
   table#employees_table
   .grid-container#employees_edit
@@ -65,7 +67,7 @@ if (show_all || req.query.type == "employees")
       .cell.small-3
         +functional-buttons("employees")
 
-if (show_all || req.query.type == "departments")
+if (show_all || query.includes("departments"))
   h5#departments Отделы
   table#departments_table
   .grid-container#departments_edit
@@ -76,7 +78,7 @@ if (show_all || req.query.type == "departments")
       .cell.small-2
         +functional-buttons("departments")
 
-if (show_all || req.query.type == "positions")
+if (show_all || query.includes("positions"))
   h5#positions Должности
   table#positions_table
   .grid-container#positions_edit
