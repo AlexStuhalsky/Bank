@@ -25,6 +25,10 @@ router.get('/edit', function(req, res, next) {
   res.render(page, data);
 });
 
+var foo = function() {
+  alert("this is server function!");
+}
+
 router.post('/edit', function(req, res, next) {
   var obj = req.body;
   var type = obj.type;
@@ -62,7 +66,7 @@ router.post('/edit', function(req, res, next) {
     else if (do_insert) {
       query += "insert into rates values (" + obj.amount + ", " + obj.percent + ", '" + obj.name + "', default, default);";
     }
-    query += "select rate_id as data_id, iif(amount > 0, 'Кредит', 'Депозит') as rate_type, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates;";
+    query += "select rate_id as data_id, rate_name, abs(amount) as amount, cast((per_rate * 100) as varchar(3)) + '%' as per_rate from rates where amount " + obj.filter + ";";
   }
   else if (type.includes("departments")) {
     if (do_update) {

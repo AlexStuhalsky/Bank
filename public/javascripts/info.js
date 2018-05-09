@@ -1,38 +1,14 @@
-var translation = {
-  "surname" : "Фамилия",
-  "name" : "Имя",
-  "patronymic" : "Отчество",
-  "birth_date" : "Дата рождения",
-  "address" : "Адрес",
-  "balance" : "Баланс",
-  "amount" : "Сумма",
-  "per_rate" : "Ставка",
-  "rate_name" : "Название",
-  "pos_name" : "Должность",
-  "salary" : "Зарплата",
-  "dep_id" : "№ Отдела",
-  "rate_type" : "Класс тарифа"
+var on_failed = function(jqXHR, textStatus) {
+    console.log("Request failed: " + textStatus);
 };
 
-function renderTable(data) {
-  $("table").empty().append("<tbody>").append("<tr>");
-
-  for(var name in data[0]) {
-    var tmp = translation[name];
-    if (tmp) {
-      $("tbody > tr").append("<th>" + tmp + "</th>");
-    }
-  }
-  
-  for(var object of data) {
-    var row = "";
-    for (var field in object) {
-      if (translation[field]) {
-        row += "<td>" + object[field] + "</td>";
-      }
-    }
-    $("tbody").append("<tr class='text-center'>" + row + "</tr>");
-  }
+function load(file, success, failed=on_failed, path="/javascripts/includes/") {
+  $.ajax({
+    url: path + file + ".js",
+    dataType: "script"
+  })
+  .done(success)
+  .fail(failed);
 }
 
 function select() {
@@ -45,14 +21,35 @@ function select() {
     cache: false,
     data: { type: request_type }
   })
-  .done(renderTable)
-  .fail(function(jqXHR, textStatus) {
-    console.log("Request failed: " + textStatus);
-  });
+  .done(function (data) {
+    renderTable("table", data);
+  })
+  .fail(on_failed);
 }
 
-$(function() {
+var on_load = function() {
   $(".menu > li").map(function() {
     this.onclick = select.bind(this);
+  });
+};
+
+$(function() {
+  var translation = false;
+  var render = false;
+
+  var loaded = function () {
+    if (translation && render) {
+      on_load();
+    }
+  }
+
+  load("translation", function() {
+    translation = true;
+    loaded();
+  });
+
+  load("renderTable", function() {
+    render = true;
+    loaded();
   });
 });
