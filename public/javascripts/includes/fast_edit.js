@@ -83,8 +83,8 @@ function edit_data() {
   $("#data_area").empty();
 
   $.ajax({
-    method: "GET",
-    url: "/edit?type=" + type,
+    method: "POST",
+    url: "/edit_components?type=" + type,
     cache: false
   })
   .done(function(data) {

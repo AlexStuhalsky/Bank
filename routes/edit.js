@@ -3,26 +3,10 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/edit', function(req, res, next) {
-  var has_type = req.url.includes("?");
-
-  res.set({
-    'Cache-Control': 'no-cache'
+  res.render("edit", {
+    req: req,
+    title: "Редактирование записей"
   });
-
-  var page = "";
-  var data = {
-    req: req
-  };
-
-  if (!has_type) {
-    page = "edit";
-    data.title = "Редактирование записей";
-  }
-  else {
-    page = "edit_components";
-  }
-
-  res.render(page, data);
 });
 
 router.post('/edit', function(req, res, next) {

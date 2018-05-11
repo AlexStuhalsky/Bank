@@ -24,8 +24,8 @@ $(function() {
   }
 
   $.ajax({
-    method: "GET",
-    url: "/edit",
+    method: "POST",
+    url: "/edit_components",
     cache: false
   })
   .done(function(data) {
