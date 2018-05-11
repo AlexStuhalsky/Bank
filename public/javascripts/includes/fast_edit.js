@@ -84,7 +84,7 @@ function edit_data() {
 
   $.ajax({
     method: "POST",
-    url: "/edit_components?type=" + type,
+    url: "/components?type=" + type,
     cache: false
   })
   .done(function(data) {

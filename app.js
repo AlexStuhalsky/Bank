@@ -14,7 +14,7 @@ var credit = require('./routes/credit');
 var user = require('./routes/user');
 var make_contract = require('./routes/contract');
 var edit = require('./routes/edit');
-var edit_components = require('./routes/edit_components');
+var components = require('./routes/components');
 
 var app = express();
 
@@ -47,7 +47,7 @@ mssql.connect(config).then(function () {
   app.use('/', user);
   app.use('/', make_contract);
   app.use('/', edit);
-  app.use('/', edit_components);
+  app.use('/', components);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

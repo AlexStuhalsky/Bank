@@ -25,7 +25,7 @@ $(function() {
 
   $.ajax({
     method: "POST",
-    url: "/edit_components",
+    url: "/components",
     cache: false
   })
   .done(function(data) {
