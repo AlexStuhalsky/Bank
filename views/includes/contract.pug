@@ -13,35 +13,10 @@ mixin contract_search()
               button.button.horizontal-fill.content-search(type='button') Искать
 
 mixin edit_button(type)
-  button.button.edit-button.hollow(edit_type=type) ✎
+  span.edit-button(edit_type=type) ✎
 
 mixin contract_table(contracts)
-  table
-    tr
-      th №
-      th ФИО клиента 
-        +edit_button("clients")
-      th ФИО сотрудника 
-        +edit_button("employees")
-      th Тариф 
-        +edit_button("rates")
-      th Сумма
-      th Процент
-      th Баланс
-      th Дата
-      th Адрес 
-        +edit_button("departments")
-    each c in contracts 
-      tr.text-center
-        td= c.contract_id
-        td= c.client_surname + ' ' + c.client_name + ' ' + c.client_patronymic
-        td= c.emp_surname + ' ' + c.emp_name + ' ' + c.emp_patronymic
-        td= c.rate_name
-        td= Math.abs(c.rate_amount)
-        td= c.per_rate * 100 + '%'
-        td= Math.abs(c.balance)
-        td= c.date.toLocaleDateString()
-        td= c.address
+  table#contracts_table
 
 mixin edit_area()
   div#data_area

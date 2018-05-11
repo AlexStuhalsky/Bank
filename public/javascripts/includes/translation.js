@@ -11,5 +11,7 @@ var translation = {
   "pos_name": "Должность",
   "salary": "Зарплата",
   "dep_id": "№ Отдела",
-  "pos_id": "ИД должности"
+  "pos_id": "ИД должности",
+  "payment_id" : "ИД платежа",
+  "date" : "Дата"
 };

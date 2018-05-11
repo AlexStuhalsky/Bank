@@ -25,10 +25,6 @@ router.get('/edit', function(req, res, next) {
   res.render(page, data);
 });
 
-var foo = function() {
-  alert("this is server function!");
-}
-
 router.post('/edit', function(req, res, next) {
   var obj = req.body;
   var type = obj.type;

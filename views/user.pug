@@ -4,6 +4,13 @@ block header
   h1 Личный кабинет 
   p Производите денежные взносы и проверяйте состояние активных контрактов.
 
+mixin info_row(line, selector)
+  .grid-x.grid-margin-x
+    .cell.shrink
+      h5=line
+    .cell.auto
+      h5(id=selector)
+
 block content
   .grid-container.fluid
     .grid-x.grid-margin-x
@@ -11,6 +18,8 @@ block content
         .sticky(data-sticky, data-anchor="data", data-sticky-on="small")
           ul.menu.vertical(data-magellan)
             li: a(href="#active-contracts") Активные договора
+            li: a(href="#table") История платежей
+            li: a(href="#payment") Выполнить платеж
             li: a(href="#graph") График выплат по договору
             li: a(href="#calculators") Калькулятор выплат
       .cell.small-10#data(data-something)
@@ -24,6 +33,30 @@ block content
           .cell.small-6
             label Активные договора клиента:
             select#contract_select
-        div#table        
+        table#table
+          tbody.table-body-transparent
+            tr
+              td
+                img.table-img(src="/images/table.png")
+              td
+                h3 История платежей клиента по выбранному договору
+        div#controls
+          .grid-container.align-middle.no-margin#payment
+            .grid-x.grid-margin-x
+              .cell.small-8
+                input#cash(type="text", placeholder="Введите сумму...")
+              .cell.small-4
+                button.button#pay Произвести взнос 
+            +info_row("Баланс по договору:", "contract_balance")
+            +info_row("Сотрудник:", "employee_name")
+            h5#rate_info
+            
         div#graph
+          table.text-center
+            tbody.table-body-transparent
+              tr
+                td
+                  img.table-img(src="/images/graph.png")
+                td
+                  h3 График взносов клиента по выбранному договору
         div#calculators

@@ -1,7 +1,7 @@
 function cells_contain(cells, row_length, start_index, objects) {
-  var cnt = 0;
   for (var i = 0; i < cells.length / row_length; i++) {
-    for (var j = start_index, k = 3; k < arguments.length; j++, k++)
+    var cnt = 0;
+    for (var j = start_index, k = 3; k < arguments.length; j++, k++) 
       if (cells[i * row_length + j].innerHTML == arguments[k])
         cnt++;
 
@@ -89,7 +89,8 @@ function change() {
   });
 }
 
-function button_action() {
+function button_action(callback=null) {
+  callback = typeof callback === 'function' ? callback : function() {}
   var type = $(this).attr('group');
   var table_name = "#" + type + "_table";
   var cells = $(table_name + " td");
@@ -113,7 +114,7 @@ function button_action() {
 
         if (!rate.name || !is_int(rate.amount) || !is_int(rate.percent))
           throw field_data_error;
-
+        
         if (cells_contain(cells, row_length, 1, rate.name, rate.amount, rate.percent))
           throw "Ошибка: тариф с такими данными уже используется!";
 
@@ -128,6 +129,7 @@ function button_action() {
 
         edit_ajax(rate, function (data) {
           renderEditTable("#rates_table", data);
+          callback();
         });
 
         set_value("#rate_name", "#rate_amount", "#rate_percent", "#rate_data_id", "");
@@ -147,6 +149,7 @@ function button_action() {
 
         edit_ajax(client, function (data) {
           renderEditTable("#clients_table", data);
+          callback();
         });
 
         set_value("#client_surname", "#client_name", "#client_patronymic", "#client_birth_date", "#client_address", "#client_data_id", "");
@@ -168,6 +171,7 @@ function button_action() {
         
         edit_ajax(emp, function (data) {
           renderEditTable("#employees_table", data);
+          callback();
         });
 
         set_value("#employee_surname", "#employee_name", "#employee_patronymic", "#employee_birth_date", "#employee_data_id", "");
@@ -193,6 +197,7 @@ function button_action() {
             type: "employees"
           }, function (data) {
             renderEditTable("#employees_table", data);
+            callback();
           });
         });
 
@@ -219,6 +224,7 @@ function button_action() {
             type: "employees"
           }, function (data) {
             renderEditTable("#employees_table", data);
+            callback();
           });
         });
 

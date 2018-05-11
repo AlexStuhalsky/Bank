@@ -70,10 +70,25 @@ body {
 }
 
 .edit-button {
-    margin: 0 0 0 0;
-    font-size: 0.38rem;
-    width: 1.2rem;
-    height: 1.2rem;
+    font-weight: 100;
+    color: #cacaca;
+    border: 0.05em solid #cacaca;
+    border-radius: 0.3em;
+    padding: 0 0.2em 0 0.2em;
+}
+
+.edit-button:hover {
+    font-weight: 100;
+    color: #1779ba;
+    cursor: pointer;
+    border: 0.05em solid #1779ba;
+    border-radius: 0.3em;
+    padding: 0 0.2em 0 0.2em;
+}
+
+.table-body-transparent {
+    border: none;
+    background-color: transparent;
 }
 
 .no-margin {
@@ -118,6 +133,12 @@ body {
 
 .content-search {
     margin-left: 0.5em;
+}
+
+.message-box {
+    position: fixed;
+    right: 50%;
+    top: 10%;
 }
 
 #footer {
