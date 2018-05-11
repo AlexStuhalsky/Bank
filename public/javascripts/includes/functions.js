@@ -232,6 +232,6 @@ function button_action(callback=null) {
     }
   }
   catch (error_message) {
-    alert(error_message);
+    messageBox(error_message, "caution");
   }
 }

@@ -3,14 +3,20 @@ mixin functional-buttons(group)
     input.button(type="submit", group=group, act="accept", value="✓")
     input.button(type="submit", group=group, act="add", value="+")
 
+mixin alert_body(type)
+  div.callout.alert-callout-border.message-box(class=type, data-closable="")
+    p#message-box-text
+    button.close-button(aria-label="Dismiss alert", type="button", data-close="")
+      span(aria-hidden="true") &times;
+
 - var query = req.query.type;
-- var show_all = (query == undefined);
+- var show_all = (query == "all");
 
 if (show_all || query.includes("rates"))
   .grid-container.align-middle.no-margin
     .grid-x
       .cell.shrink
-        h5.top-margin#rates Тарифы:&nbsp
+        h5.top-margin#rates Тарифы:&nbsp;
       .cell.shrink
         select#rate_select
           option Кредиты
@@ -94,3 +100,21 @@ if (show_all || query.includes("positions"))
         input#position_salary(type="text", placeholder="Оклад...")
       .cell.small-4
         +functional-buttons("positions")
+
+if (query.includes("message"))
+  +alert_body("primary")
+
+if (query.includes("mistake"))
+  +alert_body("secondary")
+
+if (query.includes("oops"))
+  +alert_body("radius")
+
+if (query.includes("error"))
+  +alert_body("radius alert")
+
+if (query.includes("success"))
+  +alert_body("success")
+
+if (query.includes("caution"))
+  +alert_body("warning")

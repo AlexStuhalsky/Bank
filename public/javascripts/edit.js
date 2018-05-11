@@ -16,16 +16,17 @@ $(function() {
   var render = false;
   var functions = false;
   var translation = false;
+  var message_box = false;
 
   var loaded = function() {
-    if (data && functions && translation) {
+    if (data && functions && translation && message_box) {
       on_load();
     }
   }
 
   $.ajax({
     method: "POST",
-    url: "/components",
+    url: "/components?type=all",
     cache: false
   })
   .done(function(data) {
@@ -47,6 +48,11 @@ $(function() {
 
   load("renderTable", function() {
     render = true;
+    loaded();
+  });
+
+  load("message_box", function() {
+    message_box = true;
     loaded();
   });
 });

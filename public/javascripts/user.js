@@ -76,7 +76,7 @@ function make_payment() {
   var cash = $("#cash").val();
 
   if (isNaN(parseInt(cash))) {
-    alert("Ошибка: сумма введена неверно!");
+    messageBox("Ошибка: сумма введена неверно!", "error");
     return;
   }
 
@@ -107,6 +107,7 @@ var on_load = function () {
 $(function() {
   var translation = false;
   var render = false;
+  var message_box = false;
 
   var loaded = function() {
     if (translation && render) {
@@ -121,6 +122,11 @@ $(function() {
 
   load("renderTable", function() {
     render = true;
+    loaded();
+  });
+
+  load("message_box", function() {
+    message_box = true;
     loaded();
   });
 })

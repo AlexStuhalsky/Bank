@@ -2,9 +2,10 @@ function load_logic() {
   var render = false;
   var functions = false;
   var translation = false;
+  var message_box = false;
 
   var loaded = function() {
-    if (render && functions && translation) {
+    if (render && functions && translation && message_box) {
       load_table();
     }
   }
@@ -21,6 +22,11 @@ function load_logic() {
 
   load("renderTable", function() {
     render = true;
+    loaded();
+  });
+
+  load("message_box", function() {
+    message_box = true;
     loaded();
   });
 };
