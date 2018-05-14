@@ -5,9 +5,12 @@ mixin functional-buttons(group)
 
 mixin alert_body(type)
   div.callout.alert-callout-border.message-box(class=type, data-closable="")
-    p#message-box-text
-    button.close-button(aria-label="Dismiss alert", type="button", data-close="")
-      span(aria-hidden="true") &times;
+    .grid-container
+      .grid-x.grid-margin-x
+        .cell.small-11
+          h5.top-margin#message-box-text
+        .cell-small-1
+          button.close-button(aria-label="Dismiss alert", type="button", data-close="") &times;
 
 - var query = req.query.type;
 - var show_all = (query == "all");
