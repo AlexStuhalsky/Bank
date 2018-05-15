@@ -12,6 +12,7 @@ mixin info_row(line, selector)
       h5(id=selector)
 
 block content
+  script(src="/javascripts/vendor/Chart.js")
   .grid-container.fluid
     .grid-x.grid-margin-x
       .cell.small-2.sticky-container(data-sticky-container)
@@ -51,7 +52,7 @@ block content
             +info_row("Сотрудник:", "employee_name")
             h5#rate_info
             
-        div#graph
+        div#graph_placeholder
           table.text-center
             tbody.table-body-transparent
               tr
@@ -59,4 +60,21 @@ block content
                   img.table-img(src="/images/graph.png")
                 td
                   h3 График взносов клиента по выбранному договору
+        canvas#graph(hidden)
         div#calculators
+        .grid-container.top-margin
+          .grid-x.grid-margin-x
+            .cell.small-6
+              h5 Рассчет роста кредита (депозита):
+              input#amount(type="text", placeholder="Введте сумму по договору...")
+              input#rate(type="text", placeholder="Введте ежемесячную процентную ставку...")
+              input#period(type="text", placeholder="Введте срок (в месяцах)...")
+              h5#final_amount
+              button.button.horizontal-fill#calc_amount Рассчитать рост
+            .cell.small-6
+              h5 Рассчет суммы выплаты по кредиту:
+              input#credit_amount(type="text", placeholder="Введте сумму кредита...")
+              input#credit_rate(type="text", placeholder="Введте ежемесячную процентную ставку...")
+              input#credit_period(type="text", placeholder="Введте срок (в месяцах)...")
+              h5#credit_cash
+              button.button.horizontal-fill#calc_cash Рассчитать сумму

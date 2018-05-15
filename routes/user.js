@@ -27,7 +27,7 @@ router.post('/user', function(req, res, next) {
     query += "select contract_id, rate_name, iif(rate_amount > 0, 'кредит', 'депозит') as rate_type from contracts_view where client_id = " + client_id;
     break;
   case "contract-info":
-    query = "select emp_surname, emp_name, emp_patronymic, abs(balance) as balance, rate_name, abs(rate_amount) as rate_amount, per_rate, iif(rate_amount > 0, 'Кредит', 'Депозит') as rate_type from contracts_view where contract_id = " + contract_id;
+    query = "select emp_surname, emp_name, emp_patronymic, balance, rate_name, rate_amount, per_rate, iif(rate_amount > 0, 'Кредит', 'Депозит') as rate_type, date from contracts_view where contract_id = " + contract_id;
     break;
   case "pay":
     query += "exec make_payment " + client_id + ", " + contract_id + ", " + req.body.cash + ";";
