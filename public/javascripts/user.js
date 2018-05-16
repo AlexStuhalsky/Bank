@@ -103,10 +103,15 @@ function make_payment() {
 }
 
 function renderGraph(data) {
+  var green = 'rgba(57, 219, 116, 0.5)',
+      blue = 'rgba(23, 121, 186, 1)',
+      red = 'rgba(204, 76, 56, 0.25)';
+
   var data1 = [], data2 = [], labels = [];
   var balance = contract_balance;
   var len = data.length;
   var date = null;
+  var c1, c2;
 
   var lbl1 = null, lbl2 = null;
 
@@ -118,6 +123,8 @@ function renderGraph(data) {
       balance += data[j].amount;
     }
     date = new Date(data[len-1].date);
+    c1 = green;
+    c2 = red;
     lbl1 = "История выплат";
     lbl2 = "Рост кредита";
   }
@@ -125,6 +132,8 @@ function renderGraph(data) {
     date = new Date(contract_date);
     lbl1 = "История взносов";
     lbl2 = "Рост депозита";
+    c1 = red;
+    c2 = green;
   }
 
   balance = contract_balance;
@@ -135,10 +144,6 @@ function renderGraph(data) {
     labels.push(date.toISOString().substring(0, 10));
   } 
 
-  var green = 'rgba(57, 219, 116, 0.5)',
-      blue = 'rgba(23, 121, 186, 1)',
-      red = 'rgba(204, 76, 56, 0.25)';
-
   var ctx = $("#graph")[0].getContext('2d');
   new Chart(ctx, {
     type: 'line',
@@ -148,7 +153,7 @@ function renderGraph(data) {
         label: lbl1,
         lineTension: 0,
         data: data1,
-        backgroundColor: green,
+        backgroundColor: c1,
         borderColor: blue,
         pointBackgroundColor: blue,
         borderWidth: 1
@@ -156,7 +161,7 @@ function renderGraph(data) {
         label: lbl2,
         lineTension: 0,
         data: data1.concat(data2),
-        backgroundColor: red,
+        backgroundColor: c2,
         borderColor: blue,
         pointBackgroundColor: blue,
         borderWidth: 1
