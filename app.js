@@ -9,13 +9,13 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var deposit = require('./routes/deposit');
-var info = require('./routes/info');
+var data = require('./routes/data');
 var credit = require('./routes/credit');
 var user = require('./routes/user');
 var make_contract = require('./routes/contract');
 var edit = require('./routes/edit');
 var components = require('./routes/components');
-
+var report = require('./routes/report');
 var app = express();
 
 //connection string
@@ -43,11 +43,13 @@ mssql.connect(config).then(function () {
   app.use('/', index);
   app.use('/', deposit);
   app.use('/', credit);
-  app.use('/', info);
+  app.use('/', data);
   app.use('/', user);
   app.use('/', make_contract);
   app.use('/', edit);
   app.use('/', components);
+  app.use('/', report);
+
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

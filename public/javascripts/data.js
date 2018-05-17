@@ -18,7 +18,7 @@ function select() {
   var type = $(".menu > li[class] > a").attr("class");
   $.ajax({
     method: "POST",
-    url: "/info",
+    url: "/data",
     cache: false,
     data: { type: type }
   })

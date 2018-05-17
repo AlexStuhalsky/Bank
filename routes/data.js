@@ -2,14 +2,14 @@ var mssql = require('mssql');
 var express = require('express');
 var router = express.Router();
 
-router.get('/info', function(req, res, next) {
-  res.render('info', {
+router.get('/data', function(req, res, next) {
+  res.render('data', {
     req: req,
     title: 'Справка'
   });
 });
 
-router.post('/info', function(req, res, next) {
+router.post('/data', function(req, res, next) {
   var type = req.body.type;
   var request = new mssql.Request();
   var query = "";

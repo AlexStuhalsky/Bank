@@ -1,0 +1,20 @@
+extends layout
+
+block header
+  h1 Отчёт 
+  p Создавайте отчёты в удобной форме
+
+block content
+  .grid-container
+    .grid-x.grid-margin-x
+      .cell.small-9
+        label.h5 Для создания заготовки под отчет нажмите на одну из кнопок ниже. Заготовки можно сохранять в форматах PDF, Microsoft Word, Microsoft Excel и других представленных форматах. Для этого необходимо нажать кнопку "Сохранить как" и выбрать нужный формат. Файл сохранится в папку загрузки.
+      .cell.small-3
+        img(src="/images/documents-types.png")
+  .button-group.expanded.top-margin
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fClients&rs:Command=Render") Клиенты
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fEmployees&rs:Command=Render") Сотрудники
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fContracts&rs:Command=Render") Договора
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fDepartments&rs:Command=Render") Отделы
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fPositions&rs:Command=Render") Должности
+    a.button(href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2freports%2fRates&rs:Command=Render") Тарифы
